@@ -1,0 +1,115 @@
+{
+ "sf_raw": {
+  "rows": 422078,
+  "calls_first_medic": 396616,
+  "after_service_filter": 388597
+ },
+ "SF": {
+  "days": 999,
+  "gap_days_dropped": [],
+  "calls": 269375,
+  "mean_calls_per_day": 269.64464464464464,
+  "sd_calls_per_day": 26.819048670525824,
+  "dispersion_index_daily_total": 2.6674417084749544,
+  "mean_service_min": 68.24282468677494,
+  "median_service_min": 74.16666666666667,
+  "offered_load_erlang": 12.778689036258479,
+  "first_day": "2022-01-03",
+  "last_day": "2025-12-30"
+ },
+ "nyc_raw": {
+  "rows": 6444090,
+  "after_validity_filters": 6342027,
+  "after_service_filter": 6334715,
+  "boroughs": {
+   "BROOKLYN": 1753653,
+   "MANHATTAN": 1526696,
+   "BRONX": 1475230,
+   "QUEENS": 1304696,
+   "RICHMOND / STATEN ISLAND": 274431,
+   "UNKNOWN": 9
+  }
+ },
+ "NYC_SI": {
+  "days": 999,
+  "gap_days_dropped": [],
+  "calls": 192116,
+  "mean_calls_per_day": 192.3083083083083,
+  "sd_calls_per_day": 18.570211267891093,
+  "dispersion_index_daily_total": 1.7932285379019715,
+  "mean_service_min": 64.6512850742954,
+  "median_service_min": 68.41666666666666,
+  "offered_load_erlang": 8.634013376802729,
+  "first_day": "2022-01-03",
+  "last_day": "2025-12-30"
+ },
+ "NYC_BK": {
+  "days": 999,
+  "gap_days_dropped": [],
+  "calls": 1223736,
+  "mean_calls_per_day": 1224.960960960961,
+  "sd_calls_per_day": 75.29253222129049,
+  "dispersion_index_daily_total": 4.627874347805222,
+  "mean_service_min": 70.83844180171758,
+  "median_service_min": 73.5,
+  "offered_load_erlang": 60.259948432228526,
+  "first_day": "2022-01-03",
+  "last_day": "2025-12-30"
+ },
+ "nyc_small_area": {
+  "area": "Q4",
+  "approx_weekday_calls": 82.28667305848514
+ },
+ "NYC_AREA": {
+  "days": 999,
+  "gap_days_dropped": [],
+  "calls": 82864,
+  "mean_calls_per_day": 82.94694694694695,
+  "sd_calls_per_day": 10.67248762812744,
+  "dispersion_index_daily_total": 1.3731908932752548,
+  "mean_service_min": 70.95582239171011,
+  "median_service_min": 74.11666666666666,
+  "offered_load_erlang": 4.0872005802098395,
+  "first_day": "2022-01-03",
+  "last_day": "2025-12-30"
+ },
+ "NYC_MN": {
+  "days": 999,
+  "gap_days_dropped": [],
+  "calls": 1072619,
+  "mean_calls_per_day": 1073.6926926926926,
+  "sd_calls_per_day": 75.04757780585399,
+  "dispersion_index_daily_total": 5.245578155515782,
+  "mean_service_min": 66.24293160013015,
+  "median_service_min": 69.15,
+  "offered_load_erlang": 49.392049723334445,
+  "first_day": "2022-01-03",
+  "last_day": "2025-12-30"
+ },
+ "NYC_BX": {
+  "days": 999,
+  "gap_days_dropped": [],
+  "calls": 1034884,
+  "mean_calls_per_day": 1035.91991991992,
+  "sd_calls_per_day": 55.82435230447391,
+  "dispersion_index_daily_total": 3.0083004007249197,
+  "mean_service_min": 73.70739870362281,
+  "median_service_min": 76.0,
+  "offered_load_erlang": 53.02427955733511,
+  "first_day": "2022-01-03",
+  "last_day": "2025-12-30"
+ },
+ "NYC_QN": {
+  "days": 999,
+  "gap_days_dropped": [],
+  "calls": 903986,
+  "mean_calls_per_day": 904.8908908908909,
+  "sd_calls_per_day": 61.88457407240801,
+  "dispersion_index_daily_total": 4.232223516310242,
+  "mean_service_min": 69.93780213410385,
+  "median_service_min": 73.38333333333334,
+  "offered_load_erlang": 43.948666722277835,
+  "first_day": "2022-01-03",
+  "last_day": "2025-12-30"
+ }
+}

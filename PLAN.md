@@ -146,3 +146,12 @@ the load in time and would be a weak baseline; and ACA as written would mix
   tail P(W > t) = C(c, a) exp(-(c - a) t / E[S]) <= 0.01 with t = 10 minutes.
 - H3 compares ACA (with the MOL plug-in) and SCD as before. MOL is reported
   like SIPP, with no predicted direction.
+
+### Note (2026-11-18, after the full run; no analysis change)
+
+- The smoke test (NYC_SI, origins 160 and 180, n = 80) ran without any code
+  change; the full run used the committed code unchanged.
+- Correction to the data disclosure above: per prep_log.json the dispersion
+  index ranges 1.4 to 5.2, not 1.8 to 4.6 (quoted from memory). NYC_AREA
+  (dispatch area Q4) is a subset of Queens, so its calls are counted once in
+  totals.

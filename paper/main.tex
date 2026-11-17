@@ -1,0 +1,238 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{setspace}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+\usepackage{lineno}
+\setstretch{1.4}
+\emergencystretch=2em
+\input{macros}
+\newcommand{\repoURL}{https://github.com/Thanh-Van-2001/conformal-staffing}
+\ifdefined\ANON
+  \newcommand{\repolink}{a public repository (address withheld for anonymous review)}
+\else
+  \newcommand{\repolink}{\url{\repoURL}}
+\fi
+
+\title{How many ambulances for nine good days in ten? A distribution-free staffing guarantee tested in seven EMS systems}
+\ifdefined\ANON
+\author{}
+\date{}
+\else
+\author{Thanh Van Nguyen\\[2pt]
+\small Tsinghua Shenzhen International Graduate School, Tsinghua University, Shenzhen, China\\
+\small \href{mailto:felicenguyen2001@gmail.com}{felicenguyen2001@gmail.com}}
+\date{}
+\fi
+
+\begin{document}
+\maketitle
+\linenumbers
+
+\begin{abstract}
+\noindent\textbf{Objective.} Emergency medical service (EMS) staffing rules target an average delay and say nothing about how often a day goes badly. We tested whether an hourly ambulance staffing plan can carry a finite-sample, distribution-free guarantee of meeting the service target on at least nine days in ten, and what the guarantee costs.
+
+\noindent\textbf{Methods.} We used \res{totalCalls} public dispatch records from six New York City systems and San Francisco (weekdays, 2022--2025). A day met the target if at most 5\% of its calls waited for a free unit. Split conformal calibration (SCD) chose the safety factor of a square-root staffing plan as a rank of the factors that recent days had needed. In \res{nWindows} out-of-sample 20-day windows, trace-driven simulation compared SCD with Erlang-C rules, an in-sample chance constraint, conformal bands on call counts, and an adaptive conformal level (ACI), under a pre-specified analysis plan.
+
+\noindent\textbf{Results.} SCD met the target on \res{covSCDMin} to \res{covSCDMax} of test days and used \res{premSCDMin}--\res{premSCDMax}\% more unit-hours than the best plan chosen in hindsight. The pre-specified validity criterion held in \res{hOneOk} of 7 systems, not the 6 required. Erlang-C rules met the target on only \res{covSIPPMin} to \res{covMOLMax} of days. Conformal bands on call counts cost \res{acaOverSCDMin}--\res{acaOverSCDMax}\% more unit-hours than SCD. Coverage fell when demand grew after calibration (Spearman $\rho=\res{hFourRho}$); the adaptive level restored \res{covACIMin}--\res{covACIMax} coverage at \res{premACIMin}--\res{premACIMax}\% extra cost.
+
+\noindent\textbf{Conclusions.} Calibrating the staffing decision itself, rather than the demand forecast, gives a near-nominal reliability guarantee for a few percent more unit-hours. Under growing demand the calibration level must adapt.
+
+\medskip\noindent\textbf{Keywords:} ambulance staffing; emergency medical services; conformal prediction; service level; queueing; simulation
+\end{abstract}
+
+\section{Introduction}
+
+An EMS agency that sets how many ambulances to staff in each hour of a weekday faces a trade-off that is easy to state and hard to control. Too few units and calls wait for a free ambulance; too many and paid unit-hours sit idle. Planning tools translate a forecast of hourly demand into a staffing level through a queueing formula, most often the Erlang-C model applied hour by hour (the stationary independent period-by-period, or SIPP, approach) or a refinement that accounts for calls still in service from earlier hours \citep{green2001improving,jennings1996server,green2007coping,feldman2008staffing}. These rules aim at an average: a delay probability or an expected wait in a typical hour. A director usually wants a different promise: that the service target holds on almost every day, for example nine days in ten. Daily EMS demand is over-dispersed relative to a Poisson model, and forecasts of it are uncertain \citep{channouf2007application,matteson2011forecasting,steckley2009forecast}, so a plan that is right on average can fail on many days.
+
+Operations research has addressed demand uncertainty in staffing with chance constraints and safety-staffing rules \citep{gurvich2010staffing,bassamboo2010capacity,gans2015parametric}. These methods need a probability model for the arrival rate, and their guarantees hold only if that model is right. Simulation-based staffing \citep{atlason2004call} and sample average approximation \citep{kleywegt2002saa} use recorded data instead, but optimise and evaluate on the same days, which flatters the plan.
+
+Conformal prediction offers guarantees that need no distributional model: if past and future observations are exchangeable, a prediction set calibrated on held-out data covers a new observation with probability at least the nominal level, in finite samples \citep{vovk2022algorithmic,lei2018distribution,angelopoulos2023gentle}. Extensions control the expected value of a monotone loss \citep{angelopoulos2024conformal} and adapt the level online when data drift \citep{gibbs2021adaptive,barber2023beyond,tibshirani2019conformal}. The usual route for decisions is to put a conformal band around the forecast and then plug the band into the decision rule. A staffing plan, however, does not need every hourly count to fall inside a band; it needs the day to go well.
+
+This study applies conformal calibration to the staffing decision itself. Each recent day yields the smallest safety factor that would have kept that day within the service target; the plan for the coming weeks uses a rank of these factors chosen so that, under exchangeability, a new day meets the target with probability at least $1-\alpha$. We tested this rule in seven EMS systems against the rules used in practice. Because EMS demand drifts, we also measured how far the guarantee survives non-exchangeable data and whether an adaptive level repairs it. The hypotheses, rules and tests were fixed in a version-controlled plan before any staffing computation was run.
+
+\section{Methods}
+
+\subsection{Data}
+
+We used two public dispatch data sets: the New York City EMS Incident Dispatch Data \citep{nycems2026} and the San Francisco Fire Department calls for service, restricted to calls on which a medic unit was dispatched \citep{sffire2026}. Each record gives the time the call was received and the times a unit was assigned and released. A call's busy time is the interval from the first unit assignment to the close of the incident in New York, and from the dispatch of the first medic unit to that unit becoming available in San Francisco. An operational day runs from 04:00 to 04:00. We kept Monday to Friday operational days from 3 January 2022 to 30 December 2025 that were not US federal holidays, dropped busy times outside one minute to six hours, and dropped days with fewer than half the rolling median count (none in the final data). This gave \res{nDays} days in each of seven systems: the five New York City boroughs, San Francisco, and, as a small system, the New York City dispatch area whose weekday volume was closest to 80 calls a day (area \res{areaName}, which lies within Queens). The systems carry \res{callsMin} to \res{callsMax} calls per day (Table~\ref{tab:data}) and \res{totalCalls} distinct calls in all.
+
+The data were prepared for an earlier study by the same author that compared arrival models for cost-optimal staffing (under review). That study computed no service-level guarantee, chance constraint or conformal quantity; facts known from it are listed in the analysis plan.
+
+\begin{table}[t]
+\centering
+\caption{The seven EMS systems (weekdays, 2022--2025, \res{nDays} days each). Dispersion index: variance over mean of the daily call count. Offered load: mean number of calls in service.}
+\label{tab:data}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+System & Calls per day & Dispersion index & Mean busy time (min) & Offered load \\
+\midrule
+NYC area Q4 & \res{callsArea} & \res{dispArea} & \res{svcArea} & \res{loadArea} \\
+Staten Island & \res{callsSI} & \res{dispSI} & \res{svcSI} & \res{loadSI} \\
+Bronx & \res{callsBX} & \res{dispBX} & \res{svcBX} & \res{loadBX} \\
+Manhattan & \res{callsMN} & \res{dispMN} & \res{svcMN} & \res{loadMN} \\
+Queens & \res{callsQN} & \res{dispQN} & \res{svcQN} & \res{loadQN} \\
+Brooklyn & \res{callsBK} & \res{dispBK} & \res{svcBK} & \res{loadBK} \\
+San Francisco & \res{callsSF} & \res{dispSF} & \res{svcSF} & \res{loadSF} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Service model and target}
+
+Each system was modelled as one pool of ambulances. A plan $c=(c_0,\dots,c_{23})$ sets the number of units on duty in each hour of the operational day. Each call needs one unit for its recorded busy time; calls are served first come, first served; a unit that is busy at the end of an hour finishes its call; and after 04:00 the last hour's level is kept until the queue clears. Each operational day was simulated from an empty system, driven by its own recorded calls (trace-driven simulation, which uses the real arrival times and busy times without fitting a model to them).
+
+A day \emph{met the target} if at most $\beta=5\%$ of its calls waited for a free unit. A secondary target allowed at most 1\% of calls to wait more than 10 minutes. The \emph{coverage} of a plan over a set of days is the share of days that met the target; the planning goal was coverage of at least $1-\alpha=90\%$. Cost was measured in unit-hours per day, $\sum_p c_p$.
+
+\subsection{Staffing rules}
+
+All rules used only days before the planning date.
+
+\emph{Square-root plan family.} Let $m_p$ be the mean number of calls in service at the middle of hour $p$ over a set of base days (the offered load). The plan with safety factor $\theta$ is $c_p(\theta)=\max\{1,\lceil m_p+\theta\sqrt{m_p}\,\rceil\}$, the square-root staffing rule of many-server queues \citep{halfin1981heavy,gans2003telephone}, with $\theta$ on a grid from $-2$ to $10$ in steps of $0.05$.
+
+\emph{Score of a day.} For a day $i$ and given base days, the score $\theta_i$ is the smallest grid value from which day $i$ meets the target at every larger grid value. Adding units should not lengthen waits in this model, so a day that meets the target at some $\theta$ should meet it at every larger $\theta$; we checked this on every day and grid value and found \res{nonmono} violations, so the score is simply the smallest $\theta$ at which the day meets the target.
+
+\emph{SCD: split conformal calibration of the decision (the proposed rule).} The $n$ training days before the planning date were split in time: the first $n/2$ gave the base load $m_p$, and each of the last $n/2$ (the calibration days) gave a score. The plan uses $\hat\theta$, the $k$-th smallest calibration score with $k=\lceil(n/2+1)(1-\alpha)\rceil$. Because a day meets the target exactly when its score is at most $\hat\theta$, the standard split conformal argument \citep{vovk2022algorithmic,lei2018distribution} gives
+\begin{equation}
+\Pr\{\text{a new day meets the target under } c(\hat\theta)\}\ \ge\ 1-\alpha
+\label{eq:guarantee}
+\end{equation}
+whenever the calibration days and the new day are exchangeable. The probability is over both the calibration days and the new day, so the coverage of a single plan over a window varies around $1-\alpha$.
+
+\emph{EMP: in-sample chance constraint.} The base load came from all $n$ days, and $\hat\theta$ was the $\lceil(1-\alpha)n\rceil$-th smallest score of the same $n$ days: the empirical (sample average approximation) version of a chance constraint, which reuses the data it was fitted on.
+
+\emph{SIPP and MOL: Erlang-C rules used in practice.} SIPP sets $c_p$ to the smallest number of servers whose Erlang-C delay probability is at most $\beta$, with offered load equal to the mean hourly call count times the mean busy time \citep{green2001improving}. Because busy times average about 70 minutes, longer than the one-hour period, we added the modified offered load rule (MOL), which uses the mean number of calls in service $m_p$ as the load \citep{jennings1996server,feldman2008staffing}. For the 10-minute target both rules bound the Erlang-C tail probability of waiting more than 10 minutes by 1\%. Both used all $n$ days.
+
+\emph{ACA: conformal band on arrivals, then plug in.} The base days gave the mean hourly count $\hat\lambda_p$. Each calibration day gave the score $\max_p (N_p-\hat\lambda_p)/\sqrt{\hat\lambda_p}$, where $N_p$ is its count in hour $p$, so the conformal quantile $q$ defines a band $U_p=\hat\lambda_p+q\sqrt{\hat\lambda_p}$ that covers all 24 hourly counts of a new day with probability at least $1-\alpha$. The band was converted to a load through the busy-time distribution and staffed by MOL. ACA is the usual way to use conformal prediction for decisions: calibrate the forecast, then optimise.
+
+\emph{ACI: adaptive conformal level.} As SCD, but the level carried from one planning window to the next was updated as $\alpha_{j+1}=\alpha_j+\gamma(\alpha-\text{miss}_j)$, where $\text{miss}_j$ is the share of days in window $j$ that missed the target \citep{gibbs2021adaptive}; $\gamma=0.05$, with 0.02 and 0.10 as sensitivity values.
+
+\emph{Hindsight benchmark.} The smallest $\theta$ (base load from the $n$ training days) at which at least $\lceil 20(1-\alpha)\rceil$ of the 20 test days met the target. It uses the test days and is not a usable rule; it measures what a guarantee costs.
+
+\subsection{Design and analysis plan}
+
+Planning dates were set every 20 weekdays from day 160 onwards, giving \res{nOrigins} dates per system and \res{nWindows} test windows of 20 weekdays (first window \res{firstTest}, last \res{lastTest}). At each date every rule built one plan from the $n$ preceding days, which then staffed the next 20 days. The primary configuration was $n=80$ (about four months), $\alpha=0.10$ and the 5\% delay target; secondary configurations were $n\in\{40,160\}$, $\alpha\in\{0.05,0.20\}$ and the 10-minute target.
+
+The analysis plan (hypotheses, rules, tests and decision thresholds) was committed to version control before any staffing computation was run on the data. One amendment, made before the first run, added the MOL rule and switched the plug-in step of ACA from SIPP to MOL, because SIPP misplaces load in time when busy times exceed the planning period. A two-window pipeline check was run on one system and led to no changes. The four primary hypotheses were:
+\begin{itemize}
+\item[H1] (validity) SCD's coverage is non-inferior to 90\%: the lower 95\% bound is at least 0.85, in at least 6 of the 7 systems;
+\item[H2] (in-sample optimism) EMP's coverage is lower than SCD's (one-sided Wilcoxon signed-rank test over planning dates \citep{wilcoxon1945individual}, Holm-adjusted $p<0.05$ \citep{holm1979simple}) in at least 4 systems;
+\item[H3] (calibrating the forecast over-staffs) ACA uses more unit-hours than SCD, tested in the same way;
+\item[H4] (drift) pooled over systems, SCD's coverage falls as demand grows from the calibration days to the test window (one-sided Spearman correlation, permutation within systems).
+\end{itemize}
+Confidence intervals for coverage used a moving-block bootstrap over planning dates within a system (blocks of 4 dates, 10{,}000 replicates) \citep{kunsch1989jackknife}. Under exchangeability, the coverage of a single SCD plan, conditional on its calibration days, follows a Beta$(k, n/2+1-k)$ distribution; we compared the spread of window coverage with this distribution combined with binomial sampling of 20 days.
+
+\section{Results}
+
+\subsection{Coverage and cost}
+
+Figure~\ref{fig:cc} and Table~\ref{tab:res} show coverage and cost in the primary configuration. SCD met the target on \res{covSCDMin} to \res{covSCDMax} of test days across the seven systems, and used \res{relSCDMin} to \res{relSCDMax} times the unit-hours of the hindsight plan (median over planning dates). In Brooklyn, the largest system, the extra cost over hindsight was \res{extraORBK} units on duty around the clock.
+
+The Erlang-C rules, which target a 5\% delay probability in each hour, met the day-level target far less often: MOL on \res{covMOLMin} to \res{covMOLMax} of days and SIPP on \res{covSIPPMin} to \res{covSIPPMax}. They were cheaper than the hindsight plan by \res{shortMOLMin}--\res{shortMOLMax}\% (MOL), and they fared worst in the four large New York boroughs. SCD's plans used \res{extraMOLMin}--\res{extraMOLMax}\% more unit-hours than MOL's.
+
+Calibrating the forecast instead of the decision was expensive. ACA met the target on almost every day (coverage at least \res{covACAMin}) but used \res{acaOverSCDMin}--\res{acaOverSCDMax}\% more unit-hours than SCD, and \res{relACAMin} to \res{relACAMax} times the hindsight plan. A band that covers all 24 hourly counts at once is far stricter than a good day requires: one busy hour seldom causes a bad day, because queued calls are absorbed in the following hours.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.92\linewidth]{fig_coverage_cost.pdf}
+\caption{Coverage and cost of each rule in each of the seven systems (primary configuration: 80 training days, 90\% target, at most 5\% of calls delayed). Cost is the median over planning dates of unit-hours relative to the hindsight plan. The inset enlarges the region near the target.}
+\label{fig:cc}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\caption{Coverage (share of test days meeting the target) by rule and system, primary configuration, with the moving-block bootstrap 95\% interval for SCD. Last column: SCD's unit-hours relative to the hindsight plan (median over planning dates).}
+\label{tab:res}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lccccccc}
+\toprule
+System & SCD [95\% CI] & ACI & EMP & MOL & SIPP & ACA & SCD cost \\
+\midrule
+NYC area Q4 & \res{covSCDArea} [\res{loSCDArea}, \res{hiSCDArea}] & \res{covACIArea} & \res{covEMPArea} & \res{covMOLArea} & \res{covSIPPArea} & \res{covACAArea} & \res{relSCDArea} \\
+Staten Island & \res{covSCDSI} [\res{loSCDSI}, \res{hiSCDSI}] & \res{covACISI} & \res{covEMPSI} & \res{covMOLSI} & \res{covSIPPSI} & \res{covACASI} & \res{relSCDSI} \\
+Bronx & \res{covSCDBX} [\res{loSCDBX}, \res{hiSCDBX}] & \res{covACIBX} & \res{covEMPBX} & \res{covMOLBX} & \res{covSIPPBX} & \res{covACABX} & \res{relSCDBX} \\
+Manhattan & \res{covSCDMN} [\res{loSCDMN}, \res{hiSCDMN}] & \res{covACIMN} & \res{covEMPMN} & \res{covMOLMN} & \res{covSIPPMN} & \res{covACAMN} & \res{relSCDMN} \\
+Queens & \res{covSCDQN} [\res{loSCDQN}, \res{hiSCDQN}] & \res{covACIQN} & \res{covEMPQN} & \res{covMOLQN} & \res{covSIPPQN} & \res{covACAQN} & \res{relSCDQN} \\
+Brooklyn & \res{covSCDBK} [\res{loSCDBK}, \res{hiSCDBK}] & \res{covACIBK} & \res{covEMPBK} & \res{covMOLBK} & \res{covSIPPBK} & \res{covACABK} & \res{relSCDBK} \\
+San Francisco & \res{covSCDSF} [\res{loSCDSF}, \res{hiSCDSF}] & \res{covACISF} & \res{covEMPSF} & \res{covMOLSF} & \res{covSIPPSF} & \res{covACASF} & \res{relSCDSF} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Pre-specified hypotheses}
+
+\emph{H1 was not supported.} The lower 95\% bound of SCD's coverage was at least 0.85 in \res{hOneOk} of 7 systems, one short of the pre-specified six; it fell to \res{hOneLoBX} in the Bronx and \res{hOneLoQN} in Queens. The point estimates in those systems, \res{covSCDBX} and \res{covSCDQN}, were about two percentage points below the nominal 0.90.
+
+\emph{H2 was not supported.} EMP's coverage was below SCD's in all \res{empBelowScd} systems (\res{covEMPMin} to \res{covEMPMax}), but the per-system one-sided tests gave $p=\res{hTwoPMin}$ to $\res{hTwoPMax}$, and none remained below 0.05 after Holm adjustment (smallest adjusted $p=\res{hTwoHolmMin}$).
+
+\emph{H3 was supported} in all \res{hThreeSig} systems (largest Holm-adjusted $p=\res{hThreePMax}$).
+
+\emph{H4 was supported.} Pooled over systems, SCD's window coverage fell as demand grew from the calibration days to the test window (Spearman $\rho=\res{hFourRho}$, one-sided permutation $p=\res{hFourP}$; Figure~\ref{fig:drift}a). In the \res{nLoadUp} windows whose demand was more than 3\% above the calibration days, SCD's mean coverage was \res{covLoadUp}; in the \res{nLoadDown} windows more than 3\% below, it was \res{covLoadDown}; within $\pm3\%$ (\res{nLoadFlat} windows) it was \res{covLoadFlat}.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{fig_drift.pdf}
+\caption{Drift. (a) SCD coverage in each 20-day test window against the ratio of mean daily calls in the window to the calibration days (all seven systems; points jittered vertically by at most 0.008), with means within seven equal-count bins. (b) Pooled coverage of SCD and of the adaptive level (ACI, $\gamma=0.05$) in each system; the dashed line is the 90\% target.}
+\label{fig:drift}
+\end{figure}
+
+\subsection{Adaptive level and the spread of window coverage}
+
+Updating the level from one window to the next brought coverage to \res{covACIMin}--\res{covACIMax} in every system (Figure~\ref{fig:drift}b), at \res{relACIMin} to \res{relACIMax} times the hindsight unit-hours. The result did not depend on the step size: with $\gamma=0.02$ and $0.10$ coverage ranged from \res{gTwocovMin} to \res{gTencovMax}.
+
+Window coverage varied more than exchangeability allows. Pooled over systems, the standard deviation of SCD's coverage across windows was \res{condSdObs}, against \res{condSdTh} under the exchangeable model, and \res{condBelowObs}\% of windows fell below 0.75, against \res{condBelowTh}\% expected. Successive weeks of EMS demand are not exchangeable, and the guarantee in equation~\eqref{eq:guarantee} holds on average over windows only to the extent that drift averages out.
+
+\subsection{Secondary configurations}
+
+The pattern held in every secondary configuration. With 40 training days SCD's coverage was \res{nFortycovSCDMin}--\res{nFortycovSCDMax} and ACI's \res{nFortycovACIMin}--\res{nFortycovACIMax}; with 160 days, \res{nOneSixtycovSCDMin}--\res{nOneSixtycovSCDMax} and \res{nOneSixtycovACIMin}--\res{nOneSixtycovACIMax}. At a 95\% target SCD reached \res{aFivecovSCDMin}--\res{aFivecovSCDMax} and ACI \res{aFivecovACIMin}--\res{aFivecovACIMax}, at \res{aFiverelSCDMin}--\res{aFiverelSCDMax} times the hindsight cost; at an 80\% target, \res{aTwentycovSCDMin}--\res{aTwentycovSCDMax} and \res{aTwentycovACIMin}--\res{aTwentycovACIMax}. With the 10-minute target SCD reached \res{tTencovSCDMin}--\res{tTencovSCDMax}, ACI \res{tTencovACIMin}--\res{tTencovACIMax}, and MOL \res{tTencovMOLMin}--\res{tTencovMOLMax}. ACA cost \res{aFiverelACAMin} to \res{aFiverelACAMax} times the hindsight plan at the 95\% target. In the primary configuration no conformal or in-sample rule reached the top of the $\theta$ grid (\res{flagsAll} flagged cases).
+
+\section{Discussion}
+
+Across seven EMS systems and more than three years of out-of-sample planning, calibrating the staffing decision on recent days gave plans that met a nine-days-in-ten service target close to the promised rate, at a cost a few percent above the best plan chosen in hindsight. The rules in common use did not deliver this promise: the Erlang-C rules met the day-level target on between four and eight days in ten, and they did so with fewer unit-hours, so their apparent economy is partly a lower level of service. Putting the conformal band around the demand forecast instead of the decision used \res{acaOverSCDMin}--\res{acaOverSCDMax}\% more unit-hours than SCD.
+
+The result that matters most in practice is the one the pre-specified validity test did not quite pass. When demand grew after the calibration days, coverage fell, and in the Bronx, Queens and Brooklyn the pooled coverage was about two points short of nominal. This is what conformal theory predicts when exchangeability fails \citep{barber2023beyond}, and the remedy is cheap: adjusting the level according to how many recent days missed the target restored nominal coverage in every system for \res{aciOverSCDMin}--\res{aciOverSCDMax}\% more unit-hours than SCD.
+
+The comparison with ACA carries a general lesson for decisions made under conformal guarantees. A decision needs its own outcome to be reliable, not every input to it. In staffing, a band that covers every hour of demand pays for hours that a queue would have absorbed. Calibrating the score of the decision itself (here, the safety factor a day needed) puts the guarantee where it is wanted and lets the queue's dynamics, captured by trace-driven simulation, decide what a busy hour costs. This is the reasoning behind conformal risk control \citep{angelopoulos2024conformal}; the present study shows its size on real operations data.
+
+For an EMS agency the rule needs only what most agencies already hold: a few months of dispatch records with call times and unit busy times. The steps are: compute the hourly load from the older half of the window; for each recent day, find by simulation the smallest safety factor that would have met the target; take the appropriate rank of these factors; and staff by the square-root rule with that factor. Re-run before each planning period, and raise the level when more days than intended have recently missed the target. The code is available (see Data availability).
+
+\subsection{Limitations}
+
+The service model is a single pool without geography: it does not represent travel times, unit relocation, dispatch priorities, or the requirement that the nearest unit respond, so the delays here are waits for any free unit, not response times. Busy time stands in for the full unit commitment, including transport and hospital offload. Each day was simulated from an empty system at 04:00, ignoring calls carried over from the previous night. The plan family varies one safety factor across all hours; shift structures, breaks and minimum crew sizes were not modelled. Only weekdays were studied. Windows of 20 days are short, so the coverage of any one window is noisy, and the planning dates share calibration days, which the block bootstrap only partly accounts for. The data were prepared for an earlier study by the same author; the present analyses were specified and run afterwards and none were tuned on outcomes, but the author knew some features of the data (listed in the plan). Finally, the guarantee holds for the simulated system; it transfers to real operations only as far as the simulator reproduces them.
+
+\section{Conclusions}
+
+A staffing plan can carry an explicit reliability promise, such as meeting the service target on nine days in ten, by calibrating the decision on recent days rather than by trusting a queueing formula or calibrating the demand forecast. In seven EMS systems the promise was met nearly at the nominal rate for a few percent more unit-hours than hindsight allows. Where demand grows, the calibration level should adapt to recent misses.
+
+\section*{Data availability}
+The dispatch data are public \citep{nycems2026,sffire2026}. The analysis plan with its commit history, the code, the simulator and the result files are available at \repolink.
+
+\ifdefined\ANON\else
+\section*{CRediT authorship contribution statement}
+\textbf{Thanh Van Nguyen:} Conceptualization, Methodology, Software, Formal analysis, Data curation, Writing -- original draft, Writing -- review \& editing.
+\fi
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+During the preparation of this work the author used Claude (Anthropic) to help design the analysis, write and test the code, search the literature and check every reference against Crossref and arXiv, and draft and edit the text. The author chose the research question, approved the analysis plan and its amendment before the analyses were run, and checked the results. After using this tool, the author reviewed and edited the content as needed and takes full responsibility for the content of the publication.
+
+\section*{Ethics}
+The study used only public, de-identified administrative records and involved no human participants; ethics review was not required.
+
+\section*{Funding}
+This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
+
+\section*{Declaration of competing interest}
+The author declares no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+\bibliographystyle{unsrtnat}
+\bibliography{refs}
+
+\end{document}
