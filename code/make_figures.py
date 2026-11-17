@@ -31,7 +31,7 @@ ax.text(0.893, 1.93, "target:\n90% of days", fontsize=7, color="#555555", va="to
 ins = ax.inset_axes([0.43, 0.30, 0.36, 0.40])
 for r, lab, col, mk in RULES:
     x = [S[s][r]["coverage"] for s in SYS]
-    y = [S[s][r]["rel_oracle_median"] for s in SYS]
+    y = [S[s][r]["rel_oracle_mean"] for s in SYS]
     ax.scatter(x, y, s=34, marker=mk, color=col, edgecolor="white", linewidth=0.7, label=lab, zorder=3)
     ins.scatter(x, y, s=30, marker=mk, color=col, edgecolor="white", linewidth=0.6, zorder=3)
 ins.axvline(0.90, color="#888888", lw=0.8, ls="--", zorder=0)
@@ -72,16 +72,19 @@ a1.legend(frameon=False, fontsize=7, loc="lower left")
 a1.set_title("(a) Coverage falls when load grows", fontsize=9, loc="left")
 y = np.arange(len(SYS))
 for i, s in enumerate(SYS):
-    a2.plot([S[s]["SCD"]["coverage"], S[s]["ACI_g0.05"]["coverage"]], [i, i], color="#cccccc", lw=1.2, zorder=1)
-a2.scatter([S[s]["SCD"]["coverage"] for s in SYS], y, color="#0072B2", marker="o", s=26, label="SCD", zorder=3)
-a2.scatter([S[s]["ACI_g0.05"]["coverage"] for s in SYS], y, color="#009E73", marker="D", s=22, label="ACI", zorder=3)
+    pass
+for r, col, mk, dy, lab in (("SCD", "#0072B2", "o", 0.12, "SCD"), ("ACI_g0.05", "#009E73", "D", -0.12, "ACI")):
+    xs = np.array([S[s][r]["coverage"] for s in SYS])
+    err = np.array([[S[s][r]["coverage"] - S[s][r]["cov_lo"] for s in SYS], [S[s][r]["cov_hi"] - S[s][r]["coverage"] for s in SYS]])
+    a2.errorbar(xs, y + dy, xerr=err, fmt="none", ecolor=col, elinewidth=0.9, alpha=0.6, zorder=2)
+    a2.scatter(xs, y + dy, color=col, marker=mk, s=22, label=lab, zorder=3)
 a2.axvline(0.90, color="#888888", lw=0.8, ls="--")
 a2.set_yticks(y, [LAB[s] for s in SYS])
-a2.set_xlim(0.86, 0.92)
+a2.set_xlim(0.80, 0.97)
 a2.set_xlabel("Pooled coverage")
 a2.grid(axis="x", color="#eeeeee", lw=0.6)
 a2.legend(frameon=False, fontsize=7, loc="upper left")
-a2.set_title("(b) Adaptive level restores it", fontsize=9, loc="left")
+a2.set_title("(b) SCD vs ACI (95% CI)", fontsize=9, loc="left")
 fig.tight_layout()
 fig.savefig("paper/fig_drift.pdf")
 fig.savefig("out/fig_drift.png")

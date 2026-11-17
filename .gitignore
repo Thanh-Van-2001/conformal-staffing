@@ -3,3 +3,11 @@ __pycache__/
 out/*.npz
 *.part.npz
 logs/
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.blg
+paper/*.bbl
+paper/submission/*.aux
+paper/submission/*.log
+paper/submission/*.out

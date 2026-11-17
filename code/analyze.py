@@ -87,6 +87,12 @@ def rule_rows(R):
                 rows.append(dict(common, rule="ORACLE", theta=float(z["grid"][io]), flag=not ok.size,
                                  coverage=float(ma[tg][:, io].mean()), uh=uh_or,
                                  fracA=float(z["test_fracA_all"][:, io].mean())))
+                # ORACLE_H (amendment 2, exploratory): hindsight within SCD's own family (half-window base)
+                okh = np.nonzero(mh[tg].sum(axis=0) >= need)[0]
+                ih = int(okh[0]) if okh.size else G - 1
+                rows.append(dict(common, rule="ORACLE_H", theta=float(z["grid"][ih]), flag=not okh.size,
+                                 coverage=float(mh[tg][:, ih].mean()), uh=float(z["uh_half"][ih]),
+                                 fracA=float(z["test_fracA_half"][:, ih].mean())))
                 # SIPP, MOL (do not depend on alpha)
                 for rule in ("SIPP", "MOL"):
                     fr = z[f"{rule}_{tg}_test_frac"]
@@ -131,11 +137,12 @@ def aci_rows(R, df):
     return pd.DataFrame(rows)
 
 
-def block_boot_mean(x, reps=B_REPS, block=BLOCK):
+def block_boot_mean(x, reps=B_REPS, block=BLOCK, rng=None):
+    rng = RNG if rng is None else rng
     x = np.asarray(x, float)
     J = x.size
     nb = math.ceil(J / block)
-    starts = RNG.integers(0, J - block + 1, size=(reps, nb))
+    starts = rng.integers(0, J - block + 1, size=(reps, nb))
     idx = (starts[:, :, None] + np.arange(block)[None, None, :]).reshape(reps, -1)[:, :J]
     m = x[idx].mean(axis=1)
     return float(np.percentile(m, 2.5)), float(np.percentile(m, 97.5))
@@ -165,12 +172,15 @@ def summarize(df, n, alpha, target):
     for name in SYSTEMS:
         t = s[s.system == name]
         orc = t[t.rule == "ORACLE"].set_index("origin")["uh"]
+        orh = t[t.rule == "ORACLE_H"].set_index("origin")["uh"]
         d = {}
         for rule, g in t.groupby("rule"):
             g = g.sort_values("origin")
             lo, hi = block_boot_mean(g.coverage.values)
             rel = g.set_index("origin")["uh"] / orc
             d[rule] = dict(coverage=float(g.coverage.mean()), cov_lo=lo, cov_hi=hi,
+                           rel_oracle_mean=float(g.uh.mean() / orc.mean()),
+                           rel_oracle_h_mean=float(g.uh.mean() / orh.mean()),
                            uh=float(g.uh.mean()), rel_oracle_median=float(rel.median()),
                            rel_oracle_q25=float(rel.quantile(0.25)), rel_oracle_q75=float(rel.quantile(0.75)),
                            share_below_075=float((g.coverage < 0.75).mean()), fracA=float(g.fracA.mean()),
@@ -245,6 +255,68 @@ def hypotheses(df):
     return H
 
 
+def exploratory(panel):
+    """Amendment 2 additions (exploratory)."""
+    n, a, tg = PRIMARY["n"], PRIMARY["alpha"], PRIMARY["target"]
+    s = panel[(panel.n == n) & (panel.alpha == a) & (panel.target == tg)]
+    E = {}
+    # H1 sensitivity to the bootstrap seed, with and without NYC_AREA
+    counts, counts_noq4, bk = [], [], []
+    for seed in range(50):
+        rng = np.random.default_rng(1000 + seed)
+        lo = {nm: block_boot_mean(s[(s.system == nm) & (s.rule == "SCD")].sort_values("origin").coverage.values,
+                                  rng=rng)[0] for nm in SYSTEMS}
+        counts.append(sum(v >= 0.85 for v in lo.values()))
+        counts_noq4.append(sum(v >= 0.85 for k, v in lo.items() if k != "NYC_AREA"))
+        bk.append(lo["NYC_BK"])
+    E["h1_seed"] = dict(min=int(min(counts)), max=int(max(counts)), share_max=float(np.mean(np.array(counts) == max(counts))),
+                        noq4_min=int(min(counts_noq4)), noq4_max=int(max(counts_noq4)),
+                        bk_lo_min=float(min(bk)), bk_lo_max=float(max(bk)))
+    # ACI vs SCD, paired one-sided Wilcoxon per system
+    p = {}
+    for nm in SYSTEMS:
+        x = s[(s.system == nm) & (s.rule == "ACI_g0.05")].sort_values("origin").coverage.values
+        y = s[(s.system == nm) & (s.rule == "SCD")].sort_values("origin").coverage.values
+        p[nm] = wilcox(x, y, "greater")
+    E["aci_vs_scd_p"] = p
+    E["aci_vs_scd_p_holm"] = dict(zip(p, holm(list(p.values())).tolist()))
+    # H4: within-system rho; circular-shift permutation of coverage within systems
+    g = s[s.rule == "SCD"].sort_values(["system", "origin"])
+    E["h4_within_rho"] = {nm: float(stats.spearmanr(g[g.system == nm].load_ratio, g[g.system == nm].coverage).statistic)
+                          for nm in SYSTEMS}
+    obs = stats.spearmanr(g.load_ratio, g.coverage).statistic
+    rng = np.random.default_rng(7)
+    cov_by = [g[g.system == nm].coverage.values for nm in SYSTEMS]
+    lr = np.concatenate([g[g.system == nm].load_ratio.values for nm in SYSTEMS])
+    sims = np.empty(10000)
+    for r in range(sims.size):
+        c2 = np.concatenate([np.roll(c, rng.integers(1, c.size)) for c in cov_by])
+        sims[r] = stats.spearmanr(lr, c2).statistic
+    E["h4_circular_p"] = float((np.sum(sims <= obs) + 1) / (sims.size + 1))
+    # spread of window coverage vs the independent-days Beta-Binomial model
+    h = n // 2
+    k = k_of(h, a)
+    obs_sd = float(g.coverage.std(ddof=0))
+    J = [int((g.system == nm).sum()) for nm in SYSTEMS]
+    rng = np.random.default_rng(11)
+    sds = np.empty(20000)
+    for r in range(sds.size):
+        C = rng.beta(k, h + 1 - k, size=sum(J))
+        sds[r] = (rng.binomial(TEST, C) / TEST).std()
+    E["spread_p"] = float((np.sum(sds >= obs_sd) + 1) / (sds.size + 1))
+    # systems below nominal coverage per configuration
+    below = {}
+    for nn in NS:
+        for aa in ALPHAS:
+            for tt in "AB":
+                q = panel[(panel.n == nn) & (panel.alpha == aa) & (panel.target == tt)]
+                key = f"n{nn}_a{aa:.2f}_{tt}"
+                below[key] = {r: int(sum(q[(q.system == nm) & (q.rule == r)].coverage.mean() < 1 - aa for nm in SYSTEMS))
+                              for r in ("SCD", "ACI_g0.05", "EMP")}
+    E["below_nominal"] = below
+    return E
+
+
 def main():
     R = load_all()
     df = rule_rows(R)
@@ -259,6 +331,7 @@ def main():
                 key = f"n{n}_a{a:.2f}_{tg}"
                 res["summary"][key] = summarize(panel, n, a, tg)
                 res["conditional"][key] = conditional_check(panel, n, a, tg)
+    res["exploratory"] = exploratory(panel)
     with open(os.path.join(OUT, "results.json"), "w") as f:
         json.dump(res, f, indent=1)
     H = res["hypotheses"]

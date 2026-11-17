@@ -1,0 +1,58 @@
+{
+ "NYC_AREA": {
+  "carry_over_mean": 1.8888888888888888,
+  "own_in_service_0430_mean": 0.7077077077077077,
+  "share_svc_lt5min": 0.0051047499517281325,
+  "share_svc_lt15min": 0.05545230739525005,
+  "median_svc_min": 74.11666666666666,
+  "mean_svc_min": 70.95582239171011
+ },
+ "NYC_SI": {
+  "carry_over_mean": 3.962962962962963,
+  "own_in_service_0430_mean": 1.5815815815815817,
+  "share_svc_lt5min": 0.005954735680526349,
+  "share_svc_lt15min": 0.07357533989881114,
+  "median_svc_min": 68.41666666666666,
+  "mean_svc_min": 64.6512850742954
+ },
+ "NYC_BX": {
+  "carry_over_mean": 28.001001001001,
+  "own_in_service_0430_mean": 10.0990990990991,
+  "share_svc_lt5min": 0.006407481418207258,
+  "share_svc_lt15min": 0.0533412440428106,
+  "median_svc_min": 76.0,
+  "mean_svc_min": 73.70739870362281
+ },
+ "NYC_MN": {
+  "carry_over_mean": 27.09009009009009,
+  "own_in_service_0430_mean": 9.731731731731731,
+  "share_svc_lt5min": 0.009598934943348942,
+  "share_svc_lt15min": 0.07721381030915916,
+  "median_svc_min": 69.15,
+  "mean_svc_min": 66.24293160013015
+ },
+ "NYC_QN": {
+  "carry_over_mean": 21.4994994994995,
+  "own_in_service_0430_mean": 8.258258258258259,
+  "share_svc_lt5min": 0.00770034049199877,
+  "share_svc_lt15min": 0.06487268608142162,
+  "median_svc_min": 73.38333333333334,
+  "mean_svc_min": 69.93780213410385
+ },
+ "NYC_BK": {
+  "carry_over_mean": 32.28028028028028,
+  "own_in_service_0430_mean": 11.512512512512513,
+  "share_svc_lt5min": 0.006065033634705524,
+  "share_svc_lt15min": 0.06005543679355678,
+  "median_svc_min": 73.5,
+  "mean_svc_min": 70.83844180171758
+ },
+ "SF": {
+  "carry_over_mean": 5.7557557557557555,
+  "own_in_service_0430_mean": 1.9159159159159158,
+  "share_svc_lt5min": 0.05932250580046404,
+  "share_svc_lt15min": 0.18264501160092808,
+  "median_svc_min": 74.16666666666667,
+  "mean_svc_min": 68.24282468677494
+ }
+}

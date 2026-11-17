@@ -155,3 +155,22 @@ the load in time and would be a weak baseline; and ACA as written would mix
   index ranges 1.4 to 5.2, not 1.8 to 4.6 (quoted from memory). NYC_AREA
   (dispatch area Q4) is a subset of Queens, so its calls are counted once in
   totals.
+
+### Amendment 2 (2026-11-18, after the results and an internal referee review)
+
+No pre-specified test, rule or threshold changes; H1-H4 are reported as
+pre-specified. Added, all labelled exploratory in the paper:
+
+- H1 sensitivity to the bootstrap random seed (50 seeds; Brooklyn's bound
+  sits at the 0.85 threshold), and H1 without NYC_AREA (a subset of Queens).
+- Cost reported as the ratio of mean unit-hours (one convention for every
+  cost figure), against the pre-specified hindsight plan and against a
+  hindsight plan in SCD's own family (half-window base load).
+- ACI vs SCD: paired one-sided Wilcoxon on window coverage per system.
+- H4: within-system Spearman correlations and a circular-shift permutation
+  test that keeps each system's serial dependence.
+- Spread of window coverage: parametric-bootstrap p-value for the observed
+  pooled standard deviation under the independent-days Beta-Binomial model.
+- Counts of systems below nominal coverage in each secondary configuration.
+- Descriptive data checks: calls still in service at 04:00 (carry-over that
+  the simulator omits) and the share of very short busy times.
