@@ -126,4 +126,23 @@ n in {40, 160}; alpha in {0.05, 0.20}; the 10-minute target; ACI with gamma in
 
 ## Amendment log
 
-(none yet)
+### Amendment 1 (2026-11-18, before any code was run on the data)
+
+Busy times average about 70 minutes, longer than the one-hour period, so
+SIPP (offered load = hourly arrivals x mean busy time) is known to misplace
+the load in time and would be a weak baseline; and ACA as written would mix
+"conformalize the forecast" with SIPP's lag error. Changes:
+
+- Added rule 3b, MOL (modified offered load, the standard fix for
+  time-varying loads): a_p = m_p from all n days (mean number in service at
+  the midpoint of hour p); c_p = smallest c > a_p with Erlang-C delay
+  probability <= beta. SIPP is kept unchanged.
+- ACA now plugs its envelope into MOL instead of SIPP: the envelope U_p of
+  hourly arrivals is turned into a load m_p(U) = sum_j K_j U_{p-j}, where K_j is
+  the probability that a call arriving uniformly within hour p - j is still
+  in service at the midpoint of hour p, estimated from the base days' busy
+  times; then Erlang-C as in MOL.
+- For the secondary 10-minute target, SIPP, MOL and ACA use the Erlang-C
+  tail P(W > t) = C(c, a) exp(-(c - a) t / E[S]) <= 0.01 with t = 10 minutes.
+- H3 compares ACA (with the MOL plug-in) and SCD as before. MOL is reported
+  like SIPP, with no predicted direction.
