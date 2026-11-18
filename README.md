@@ -36,7 +36,7 @@ python -I code/analyze.py out
 python -I code/make_macros.py && python -I code/make_figures.py
 ```
 
-Python 3.11 with numpy, numba, pandas, scipy and matplotlib.
+Python 3.12 (results run with NumPy 2.3.4, Numba 0.62.1, pandas 2.3.3, SciPy 1.16.3 on Ubuntu 22.04) plus matplotlib, python-docx and pandoc for the paper files.
 
 ## Licence
 

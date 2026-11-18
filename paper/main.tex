@@ -36,15 +36,15 @@
 \linenumbers
 
 \begin{abstract}
-\noindent\textbf{Objective.} Emergency medical service (EMS) staffing rules target an average delay and say nothing about how often a day goes badly. We tested whether calibrating an hourly ambulance staffing plan on recent days can meet a service target on nine days in ten, as conformal prediction promises for exchangeable data, and what this costs.
+\noindent\textbf{Objectives.} Emergency medical service (EMS) staffing rules target an average delay and say nothing about how often a day goes badly. We tested whether calibrating an hourly ambulance staffing plan on recent days can meet a service target on nine days in ten, as conformal prediction promises for exchangeable data, and what this costs.
 
-\noindent\textbf{Methods.} We used \res{totalCalls} public dispatch records from New York City and San Francisco (weekdays, 2022--2025), forming seven service areas. A day met the target if at most 5\% of calls waited for a free unit. Split conformal calibration (SCD) set the safety factor of a square-root staffing plan to a rank of the factors that recent days had needed. Over \res{nWindows} out-of-sample 20-day windows, trace-driven simulation compared SCD with Erlang-C rules, an in-sample chance constraint and conformal bands on call counts, under a pre-specified plan.
+\noindent\textbf{Methods.} In this retrospective simulation study we used \res{totalCalls} public dispatch records from seven New York City and San Francisco service areas (weekdays, 2022--2025). A day met the target if at most 5\% of calls waited for a free unit. Split conformal calibration (SCD) set the safety factor of a square-root staffing plan to a rank of the factors that recent days had needed. Over \res{nWindows} out-of-sample 20-day windows, trace-driven simulation compared SCD with Erlang-C rules, an in-sample chance constraint and conformal bands on call counts, under a pre-specified plan.
 
 \noindent\textbf{Results.} SCD met the target on \res{covSCDMin}--\res{covSCDMax} of test days, using \res{premSCDMin}--\res{premSCDMax}\% more unit-hours than a hindsight benchmark and \res{extraMOLMin}--\res{extraMOLMax}\% more than the Erlang-C rule MOL. The pre-specified validity criterion held in \res{hOneSeedMin}--\res{hOneSeedMax} of 7 areas (6 required). Erlang-C rules, which target an hourly delay probability, met the day-level target on \res{covSIPPMin}--\res{covMOLMax} of days. Conformal bands on call counts cost \res{acaOverSCDMin}--\res{acaOverSCDMax}\% more than SCD. Coverage fell when demand grew after calibration (Spearman $\rho=\res{hFourRho}$). In exploratory analysis an adaptive level reached \res{covACIMin}--\res{covACIMax} for at most \res{aciOverSCDMax}\% more unit-hours than SCD.
 
 \noindent\textbf{Conclusions.} Calibrating the staffing decision, not the demand forecast, gave near-nominal day-level reliability for a modest cost; under growing demand the level must adapt.
 
-\medskip\noindent\textbf{Keywords:} ambulance staffing; emergency medical services; conformal prediction; service level; queueing; simulation
+\medskip\noindent\textbf{Keywords:} Emergency Medical Services; Ambulances; Personnel Staffing and Scheduling; Computer Simulation; Forecasting; conformal prediction
 \end{abstract}
 
 \section{Introduction}
@@ -59,9 +59,9 @@ This study applies conformal calibration to the staffing decision itself. Each r
 
 \section{Methods}
 
-\subsection{Data}
+\subsection{Study design and data}
 
-We used two public dispatch data sets: the New York City EMS Incident Dispatch Data \citep{nycems2026} and the San Francisco Fire Department calls for service, restricted to calls on which a medic unit was dispatched \citep{sffire2026}. Each record gives the time the call was received and the times a unit was assigned and released. A call's busy time is the interval from the first unit assignment to the close of the incident in New York, and from the dispatch of the first medic unit to that unit becoming available in San Francisco; an incident that drew several units counts as one call needing one unit. An operational day runs from 04:00 to 04:00. We kept Monday to Friday operational days from 3 January 2022 to 30 December 2025 that were not US federal holidays, dropped busy times outside one minute to six hours, and dropped days with fewer than half the rolling median count (none in the final data).
+This is a retrospective, trace-driven simulation study of public administrative dispatch records, reported following the STRESS-DES guidelines for discrete-event simulation studies \citep{monks2019stress} (checklist in the supplementary material). The records are public and de-identified and the study involved no human participants, so institutional review board approval was not required. We used two public dispatch data sets: the New York City EMS Incident Dispatch Data \citep{nycems2026} and the San Francisco Fire Department calls for service, restricted to calls on which a medic unit was dispatched \citep{sffire2026}. Each record gives the time the call was received and the times a unit was assigned and released. A call's busy time is the interval from the first unit assignment to the close of the incident in New York, and from the dispatch of the first medic unit to that unit becoming available in San Francisco; an incident that drew several units counts as one call needing one unit. An operational day runs from 04:00 to 04:00. We kept Monday to Friday operational days from 3 January 2022 to 30 December 2025 that were not US federal holidays, dropped busy times outside one minute to six hours, and dropped days with fewer than half the rolling median count (none in the final data).
 
 This gave \res{nDays} days in each of seven service areas from two agencies: the five New York City boroughs, San Francisco, and, as a small system, the New York City dispatch area whose weekday volume was closest to 80 calls a day (area \res{areaName}, which lies within Queens). The areas carry \res{callsMin} to \res{callsMax} calls per day (Table~\ref{tab:data}) and \res{totalCalls} distinct calls in all. Busy times under 15 minutes made up at most \res{shortSvcNYCMax}\% of New York calls and \res{shortSvcSF}\% of San Francisco calls.
 
@@ -87,7 +87,7 @@ San Francisco & \res{callsSF} & \res{dispSF} & \res{svcSF} & \res{loadSF} \\
 \end{tabular}
 \end{table}
 
-\subsection{Service model and target}
+\subsection{Service model and outcomes}
 
 Each area was modelled as one closed pool of ambulances. A plan $c=(c_0,\dots,c_{23})$ sets the number of units on duty in each hour of the operational day. Each call needs one unit for its recorded busy time; calls are served first come, first served; a unit that is busy at the end of an hour finishes its call; and after 04:00 the last hour's level is kept until the queue clears. Each operational day was simulated from an empty system, driven by its own recorded calls (trace-driven simulation, which uses the real arrival times and busy times without fitting a model to them).
 
@@ -118,7 +118,7 @@ whenever the calibration days and the new day are exchangeable. The probability 
 
 \emph{Hindsight benchmark.} The cheapest plan in the square-root family (base load from the $n$ training days) that met the target on at least $\lceil 20(1-\alpha)\rceil$ of the 20 test days. It uses the test days and is not a usable rule; it measures what calibration costs. Because it must reach 18 of 20 days in every window, it is a demanding benchmark, and a rule can cost more than it while covering less. As an exploratory check we also computed the same benchmark within SCD's own family (base load from the first $n/2$ days).
 
-\subsection{Design and analysis plan}
+\subsection{Analysis plan and statistical analysis}
 
 Planning dates were set every 20 weekdays from day 160 onwards, giving \res{nOrigins} dates per area and \res{nWindows} test windows of 20 weekdays (first window \res{firstTest}, last \res{lastTest}). At each date every rule built one plan from the $n$ preceding days, which then staffed the next 20 days. The primary configuration was $n=80$ (about four months), $\alpha=0.10$ and the 5\% delay target; secondary configurations were $n\in\{40,160\}$, $\alpha\in\{0.05,0.20\}$ and the 10-minute target.
 
@@ -227,7 +227,7 @@ The comparison with ACA carries a lesson for decisions made under conformal guar
 
 For an EMS agency the rule needs only what most agencies already hold: a few months of dispatch records with call times and unit busy times. The steps are: compute the hourly load from the older half of the window; for each recent day, find by simulation the smallest safety factor that would have met the target; take the appropriate rank of these factors; and staff by the square-root rule with that factor. Re-run before each planning period, and raise the level when more days than intended have recently missed the target. The code is available (see Data availability).
 
-\subsection{Limitations}
+\section{Limitations}
 
 The service model is a single closed pool for each area without geography: it does not represent travel times, unit relocation, dispatch priorities, dispatch across borough lines, or incidents that need several units, so the delays here are waits for any free unit, not response times. Busy time stands in for the full unit commitment and is defined differently in the two cities. Each day was simulated from an empty system at 04:00, whereas on average \res{carryMin} to \res{carryMax} calls per area were still in service at that hour (\res{carryBK} in Brooklyn, against \res{ownBK} of the day's own calls in service at 04:30); staffing needs in the early hours are therefore understated for every rule alike, and the comparison between rules is internal to the model. The plan family varies one safety factor across all hours; shift structures, breaks, minimum crew sizes and the lead time with which rosters are fixed were not modelled, and each plan used data up to the day before it took effect. Only weekdays were studied. Windows of 20 days are short, so the coverage of any one window is noisy; planning dates share calibration days, which the block bootstrap only partly accounts for, especially with 160 training days. The data were prepared for an earlier study by the same author; the present analyses were specified and run afterwards and none were tuned on outcomes, but the author knew some features of the data (listed in the plan). The plan, its amendments, the code and the results were committed within one day; the commit identifiers are given below. Finally, the promise holds for the simulated system; it transfers to real operations only as far as the simulator reproduces them.
 
@@ -235,25 +235,25 @@ The service model is a single closed pool for each area without geography: it do
 
 A staffing plan can be calibrated to a day-level reliability target, such as meeting the service target on nine days in ten, by ranking the safety factors that recent days needed rather than by trusting a queueing formula or calibrating the demand forecast. In seven EMS service areas this came close to the nominal rate for a modest cost, but fell short where demand grew; there the calibration level should adapt to recent misses.
 
-\section*{Data availability}
+\section*{Acknowledgements}
+The dispatch data were published by the City of New York (NYC Open Data) and the City and County of San Francisco (DataSF).
+
+\section*{Funding Sources}
+This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
+
+\section*{Declaration of Interest Statement}
+The author reports there are no competing interests to declare.
+
+\section*{Declaration of Generative AI in Scientific Writing}
+During the preparation of this work the author used Claude (Anthropic) to help design the analysis, write and test the code, search the literature and check every reference against Crossref and arXiv, obtain a referee-style critique of the draft, and draft and edit the text. The author chose the research question, approved the analysis plan and its amendments, and checked the results. After using this tool, the author reviewed and edited the content as needed and takes full responsibility for the content of the publication.
+
+\section*{Data Sharing Statement}
 The dispatch data are public \citep{nycems2026,sffire2026}. The analysis plan with its commit history (plan 47b5d13, amendment 1 f186980, analysis code b26c9f6, all committed before the results), the code, the simulator and the result files are available at \repolink.
 
 \ifdefined\ANON\else
-\section*{CRediT authorship contribution statement}
+\section*{Authorship Statement}
 \textbf{Thanh Van Nguyen:} Conceptualization, Methodology, Software, Formal analysis, Data curation, Writing -- original draft, Writing -- review \& editing.
 \fi
-
-\section*{Declaration of generative AI and AI-assisted technologies}
-During the preparation of this work the author used Claude (Anthropic) to help design the analysis, write and test the code, search the literature and check every reference against Crossref and arXiv, obtain a referee-style critique of the draft, and draft and edit the text. The author chose the research question, approved the analysis plan and its amendments, and checked the results. After using this tool, the author reviewed and edited the content as needed and takes full responsibility for the content of the publication.
-
-\section*{Ethics}
-The study used only public, de-identified administrative records and involved no human participants; ethics review was not required.
-
-\section*{Funding}
-This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
-
-\section*{Declaration of competing interest}
-The author declares no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
 
 \bibliographystyle{unsrtnat}
 \bibliography{refs}

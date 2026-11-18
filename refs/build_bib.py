@@ -4,6 +4,7 @@ checked against the arXiv API. Run: python build_bib.py <out.bib>"""
 import re
 import sys
 import time
+import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 
@@ -36,6 +37,8 @@ DOIS = {
     "kunsch1989jackknife": "10.1214/aos/1176347265",
     "wilcoxon1945individual": "10.2307/3001968",
     "kleywegt2002saa": "10.1137/S1052623499363220",
+    # reporting guideline
+    "monks2019stress": "10.1080/17477778.2018.1442155",
 }
 ARXIV = {
     "gibbs2021adaptive": "2106.00170",
@@ -100,15 +103,29 @@ EXTRA = r"""
 """
 
 
-def get(url):
-    return urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60).read().decode("utf-8")
+def get(url, tries=5):
+    for t in range(tries):
+        try:
+            return urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60).read().decode("utf-8")
+        except urllib.error.HTTPError as e:
+            if e.code != 429 or t == tries - 1:
+                raise
+            time.sleep(20 * (t + 1))
 
 
+# Crossref case errors and words that sentence-casing styles must keep
+TITLE_FIX = {"Improving the Sipp Approach": "Improving the {SIPP} Approach",
+             "title={FORECAST ERRORS IN SERVICE SYSTEMS}": "title={Forecast errors in service systems}",
+             "Introducing the STRESS guidelines": "Introducing the {STRESS} guidelines",
+             "in Calgary": "in {Calgary}", "Alberta": "{Alberta}"}
 out = []
 for key, doi in DOIS.items():
     bib = get(f"https://api.crossref.org/works/{doi}/transform/application/x-bibtex")
     bib = re.sub(r"^@(\w+)\{[^,]+,", lambda m: "@" + m.group(1) + "{" + key + ",", bib.strip(), count=1)
     bib = re.sub(r"\s*url=\{[^}]*\},", "", bib)
+    bib = re.sub(r",\s*month=\w+", "", bib)  # Crossref month macros are not defined in every style
+    for a, b in TITLE_FIX.items():
+        bib = bib.replace(a, b)
     t = re.search(r"title=\{(.*?)\},", bib)
     print(f"{key:28s} {t.group(1)[:90] if t else '??'}")
     out.append(bib)
