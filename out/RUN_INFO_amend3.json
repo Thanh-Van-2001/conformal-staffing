@@ -1,0 +1,1 @@
+{"tasks": 861, "secs": 64.87174391746521, "workers": 2, "consistency": {"score_A": true, "test_A": true, "score_B": true, "test_B": true, "uh": true, "aca_0.05": true, "aca_0.10": true, "aca_0.20": true}}

@@ -1,0 +1,1743 @@
+{
+ "conformal prediction staffing": [
+  {
+   "title": "Conformal Prediction with Large Language Models for Multi-Choice Question Answering",
+   "year": 2023,
+   "doi": "https://doi.org/10.48550/arxiv.2305.18404",
+   "venue": "arXiv (Cornell University)",
+   "cites": 182,
+   "authors": [
+    "Bhawesh Kumar",
+    "Charlie Lu",
+    "Gauri Gupta"
+   ]
+  },
+  {
+   "title": "Conformal Selective Prediction with General Risk Control",
+   "year": 2026,
+   "doi": "https://doi.org/10.48550/arxiv.2603.24704",
+   "venue": "arXiv (Cornell University)",
+   "cites": 19,
+   "authors": [
+    "Tian Bai",
+    "Ying Jin"
+   ]
+  },
+  {
+   "title": "Multi-Distribution Robust Conformal Prediction",
+   "year": 2026,
+   "doi": "https://doi.org/10.48550/arxiv.2601.02998",
+   "venue": "arXiv (Cornell University)",
+   "cites": 4,
+   "authors": [
+    "Yuqi Yang",
+    "Ying Jin"
+   ]
+  },
+  {
+   "title": "Conformal Robustness in Prediction-Driven Decision-Making",
+   "year": 2026,
+   "doi": "https://doi.org/10.48550/arxiv.2609.23170",
+   "venue": "arXiv (Cornell University)",
+   "cites": 2,
+   "authors": [
+    "Lingjie Zhao",
+    "Hansheng Jiang",
+    "Wei Qi"
+   ]
+  },
+  {
+   "title": "Validation of conformal prediction in cervical atypia classification",
+   "year": 2026,
+   "doi": "https://doi.org/10.1038/s41598-026-44850-5",
+   "venue": "Scientific Reports",
+   "cites": 1,
+   "authors": [
+    "Misgina Tsighe Hagos",
+    "Antti Suutala",
+    "Dmitrii Bychkov"
+   ]
+  },
+  {
+   "title": "MetaSTNet: Multimodal Meta-Learning for Cellular Traffic Conformal Prediction",
+   "year": 2023,
+   "doi": "https://doi.org/10.1109/tnse.2023.3335626",
+   "venue": "IEEE Transactions on Network Science and Engineering",
+   "cites": 15,
+   "authors": [
+    "Hui Ma",
+    "Kai Yang"
+   ]
+  },
+  {
+   "title": "Paths to the Mental Hospital and Staff Predictions of Patient Role Behavior",
+   "year": 1966,
+   "doi": "https://doi.org/10.2307/2948773",
+   "venue": "Journal of Health and Human Behavior",
+   "cites": 30,
+   "authors": [
+    "Norman K. Denzin",
+    "Stephen P. Spitzer"
+   ]
+  },
+  {
+   "title": "An uncertainty-aware decision framework for academic risk prediction using conformal prediction",
+   "year": 2026,
+   "doi": "https://doi.org/10.1016/j.hcc.2026.100454",
+   "venue": "High-Confidence Computing",
+   "cites": 0,
+   "authors": [
+    "Anca Muresan",
+    "Mihaela Cardei",
+    "Ionut Cardei"
+   ]
+  },
+  {
+   "title": "Conformal Learning for Quantifying Uncertainty in Psychiatric Condition Predictions",
+   "year": 2025,
+   "doi": "https://doi.org/10.21203/rs.3.rs-6458806/v1",
+   "venue": "Research Square",
+   "cites": 1,
+   "authors": [
+    "Caden Stewart",
+    "Alexander Millar",
+    "Julio Cesar Facelli"
+   ]
+  },
+  {
+   "title": "Beyond Point Forecasts: A Dynamically Adaptive Conformal Prediction and Explainable AI Framework for 112 Emergency Call Volume Forecasting",
+   "year": 2026,
+   "doi": "https://doi.org/10.2139/ssrn.7111693",
+   "venue": "SSRN Electronic Journal",
+   "cites": 0,
+   "authors": [
+    "Muhammet Rojhat Kara",
+    "Fatih Budak"
+   ]
+  },
+  {
+   "title": "Selection by Prediction with Conformal p-values",
+   "year": 2022,
+   "doi": "https://doi.org/10.48550/arxiv.2210.01408",
+   "venue": "arXiv (Cornell University)",
+   "cites": 27,
+   "authors": [
+    "Ying Jin",
+    "Emmanuel J. Cand\u00e8s"
+   ]
+  },
+  {
+   "title": "Using Monte Carlo conformal prediction to evaluate the uncertainty of deep-learning soil spectral models",
+   "year": 2025,
+   "doi": "https://doi.org/10.5194/soil-11-553-2025",
+   "venue": "SOIL",
+   "cites": 34,
+   "authors": [
+    "Yin\u2010Chung Huang",
+    "Jos\u00e9 Padarian",
+    "Budiman Minasny"
+   ]
+  },
+  {
+   "title": "Conformal prediction of air pollution concentrations for the Barcelona Metropolitan Region",
+   "year": 2012,
+   "doi": null,
+   "venue": "LA Referencia (Red Federada de Repositorios Institucionales de Publicaciones Cient\u00edficas)",
+   "cites": 2,
+   "authors": [
+    "Olga Ivina"
+   ]
+  },
+  {
+   "title": "Enhancing clinical reliability in pressure injury prediction: A conformal prediction approach with machine learning models",
+   "year": 2026,
+   "doi": "https://doi.org/10.1177/20552076261450867",
+   "venue": "Digital Health",
+   "cites": 0,
+   "authors": [
+    "Fredy Barriga-Gallegos",
+    "Gonzalo R\u00edos-V\u00e1squez",
+    "Hanns de la Fuente\u2010Mella"
+   ]
+  },
+  {
+   "title": "Resource-Aware Fair Conformal Prediction for Educational Early Warning Systems",
+   "year": 2026,
+   "doi": "https://doi.org/10.62051/jedss.v1n6.08",
+   "venue": "Journal of Educational Development and Social Sciences",
+   "cites": 0,
+   "authors": [
+    "Mira Chen",
+    "Avery Liu",
+    "Ryan Rahman"
+   ]
+  }
+ ],
+ "conformal prediction emergency medical services": [
+  {
+   "title": "Forecasting emergency medical service call arrival rates",
+   "year": 2011,
+   "doi": "https://doi.org/10.1214/10-aoas442",
+   "venue": "The Annals of Applied Statistics",
+   "cites": 129,
+   "authors": [
+    "David S. Matteson",
+    "Mathew W. McLean",
+    "Dawn B. Woodard"
+   ]
+  },
+  {
+   "title": "Beyond Point Forecasts: A Dynamically Adaptive Conformal Prediction and Explainable AI Framework for 112 Emergency Call Volume Forecasting",
+   "year": 2026,
+   "doi": "https://doi.org/10.2139/ssrn.7111693",
+   "venue": "SSRN Electronic Journal",
+   "cites": 0,
+   "authors": [
+    "Muhammet Rojhat Kara",
+    "Fatih Budak"
+   ]
+  },
+  {
+   "title": "Real-Time Multimodal Cognitive Assistant for Emergency Medical Services",
+   "year": 2024,
+   "doi": "https://doi.org/10.1109/iotdi61053.2024.00012",
+   "venue": "IEEE/ACM International Conference on Internet-of-Things Design and Implementation (IoTDI)",
+   "cites": 45,
+   "authors": [
+    "Keshara Weerasinghe",
+    "Saahith Janapati",
+    "Xueren Ge"
+   ]
+  },
+  {
+   "title": "Modelling Emergency Medical Services",
+   "year": 2013,
+   "doi": null,
+   "venue": "ORCA Online Research @Cardiff (Cardiff University)",
+   "cites": 2,
+   "authors": [
+    "Leanne Smith"
+   ]
+  },
+  {
+   "title": "The evaluation of emergency medical services",
+   "year": 2003,
+   "doi": null,
+   "venue": "Digital WPI",
+   "cites": 1,
+   "authors": [
+    "Daniel Gerard Mayotte",
+    "Timothy Robert Faulkner"
+   ]
+  },
+  {
+   "title": "Process-Aware Conformal Prediction for Ambulance Response Time Estimation",
+   "year": 2026,
+   "doi": "https://doi.org/10.1109/cbms69103.2026.00148",
+   "venue": "Proceedings - IEEE Symposium on Computer-Based Medical Systems",
+   "cites": 0,
+   "authors": [
+    "Stelios Mappouras",
+    "Andreas S. Andreou",
+    "Efthyvoulos C Kyriacou"
+   ]
+  },
+  {
+   "title": "Variation in Survival After Out-of-Hospital Cardiac Arrest Between Emergency Medical Services Agencies",
+   "year": 2018,
+   "doi": "https://doi.org/10.1001/jamacardio.2018.3037",
+   "venue": "JAMA Cardiology",
+   "cites": 80,
+   "authors": [
+    "Masashi Okubo",
+    "Robert H. Schmicker",
+    "David J. Wallace"
+   ]
+  },
+  {
+   "title": "Incidence of sudden cardiac death in Germany: results from an emergency medical service registry in Lower Saxony",
+   "year": 2014,
+   "doi": "https://doi.org/10.1093/europace/euu153",
+   "venue": "EP Europace",
+   "cites": 100,
+   "authors": [
+    "Eimo Martens",
+    "Moritz F. Sinner",
+    "Johannes Siebermair"
+   ]
+  },
+  {
+   "title": "EMSAssist: An End-to-End Mobile Voice Assistant at the Edge for Emergency Medical Services",
+   "year": 2023,
+   "doi": "https://doi.org/10.1145/3581791.3596853",
+   "venue": "International Conference on Mobile Systems, Applications, and Services",
+   "cites": 24,
+   "authors": [
+    "Liuyi Jin",
+    "T. Liu",
+    "Amran Haroon"
+   ]
+  },
+  {
+   "title": "The Use of Autonomous Systems in Emergency Medical Services: Bridging Human Intelligence and Technology",
+   "year": 2015,
+   "doi": null,
+   "venue": "Calhoun: The Naval Postgraduate School Institutional Archive (Naval Postgraduate School)",
+   "cites": 2,
+   "authors": [
+    "Josh A Davies"
+   ]
+  },
+  {
+   "title": "Experience of Belgrade\u2019s Emergency Medical Service in the implementation of cardiopulmonary resuscitation guidelines issued in 2010",
+   "year": 2013,
+   "doi": "https://doi.org/10.22514/sv81.052013.7",
+   "venue": "Signa Vitae",
+   "cites": 3,
+   "authors": [
+    "Sla\u0111ana An\u0111eli\u0107",
+    "NENAD IVAN\u010cEVI\u0106",
+    "Nada Emi\u0161-Vandlik"
+   ]
+  },
+  {
+   "title": "Conformal Robustness in Prediction-Driven Decision-Making",
+   "year": 2026,
+   "doi": "https://doi.org/10.48550/arxiv.2609.23170",
+   "venue": "arXiv (Cornell University)",
+   "cites": 2,
+   "authors": [
+    "Lingjie Zhao",
+    "Hansheng Jiang",
+    "Wei Qi"
+   ]
+  },
+  {
+   "title": "Conformal Learning for Quantifying Uncertainty in Psychiatric Condition Predictions",
+   "year": 2025,
+   "doi": "https://doi.org/10.21203/rs.3.rs-6458806/v1",
+   "venue": "Research Square",
+   "cites": 1,
+   "authors": [
+    "Caden Stewart",
+    "Alexander Millar",
+    "Julio Cesar Facelli"
+   ]
+  },
+  {
+   "title": "Probabilistic prediction of arrivals and hospitalizations in emergency departments in \u00cele-de-France",
+   "year": 2024,
+   "doi": "https://doi.org/10.1016/j.ijmedinf.2024.105728",
+   "venue": "International Journal of Medical Informatics",
+   "cites": 4,
+   "authors": [
+    "Herbert Susmann",
+    "Antoine Chambaz",
+    "Julie Josse"
+   ]
+  },
+  {
+   "title": "A Realistic Discrete Event Simulation model for Ambulance Location and Deployment within a regional Emergency Medical Service",
+   "year": 2026,
+   "doi": "https://doi.org/10.48550/arxiv.2604.24394",
+   "venue": "arXiv (Cornell University)",
+   "cites": 3,
+   "authors": [
+    "Alberto De Santis",
+    "Stefania Iannazzo",
+    "Fabio Ingravalle"
+   ]
+  }
+ ],
+ "ambulance staffing demand uncertainty prediction interval": [
+  {
+   "title": "Spatiotemporal Prediction of Ambulance Demand using Gaussian Process Regression",
+   "year": 2018,
+   "doi": "https://doi.org/10.48550/arxiv.1806.10873",
+   "venue": "arXiv (Cornell University)",
+   "cites": 4,
+   "authors": [
+    "Seth Nabarro",
+    "Tristan Fletcher",
+    "John S. Shawe-Taylor"
+   ]
+  },
+  {
+   "title": "A Spatio-Temporal Point Process Model for Ambulance Demand",
+   "year": 2014,
+   "doi": "https://doi.org/10.1080/01621459.2014.941466",
+   "venue": "Journal of the American Statistical Association",
+   "cites": 91,
+   "authors": [
+    "Zhengyi Zhou",
+    "David S. Matteson",
+    "Dawn B. Woodard"
+   ]
+  },
+  {
+   "title": "Quantitative Analysis of Ambulance Location-allocation and Ambulance State Prediction",
+   "year": 2015,
+   "doi": "https://doi.org/10.3384/lic.diva-113346",
+   "venue": "Link\u00f6ping University Electronic Press eBooks",
+   "cites": 14,
+   "authors": [
+    "Ngoc-Hien Nguyen"
+   ]
+  },
+  {
+   "title": "Predicting Melbourne ambulance demand using kernel warping",
+   "year": 2016,
+   "doi": "https://doi.org/10.1214/16-aoas961",
+   "venue": "The Annals of Applied Statistics",
+   "cites": 29,
+   "authors": [
+    "Zhengyi Zhou",
+    "David S. Matteson"
+   ]
+  },
+  {
+   "title": "Estimating the Demand for Ambulances in Traffic Accidents",
+   "year": 2025,
+   "doi": "https://doi.org/10.32598/hdq.10.4.149.8",
+   "venue": "Health in Emergencies & Disasters Quarterly",
+   "cites": 6,
+   "authors": [
+    "Manoochehr Babanezhad",
+    "Hassan Khorsha",
+    "Ali Mohajervatan"
+   ]
+  },
+  {
+   "title": "Aggression and violence against staff of ambulance services",
+   "year": 2010,
+   "doi": "https://doi.org/10.1186/cc8512",
+   "venue": "Critical Care",
+   "cites": 1,
+   "authors": [
+    "A Auer"
+   ]
+  },
+  {
+   "title": "Health status in the ambulance services: a systematic review",
+   "year": 2006,
+   "doi": "https://doi.org/10.1186/1472-6963-6-82",
+   "venue": "BMC Health Services Research",
+   "cites": 353,
+   "authors": [
+    "Tom Sterud",
+    "\u00d8ivind Ekeberg",
+    "Erlend Hem"
+   ]
+  },
+  {
+   "title": "Ambulance Deployment and Shift Scheduling: An Integrated Approach",
+   "year": 2011,
+   "doi": "https://doi.org/10.4236/jssm.2011.41010",
+   "venue": "Journal of Service Science and Management",
+   "cites": 31,
+   "authors": [
+    "Hari K. Rajagopalan",
+    "Cem Saydam",
+    "Hubert H. Setzler"
+   ]
+  },
+  {
+   "title": "Types and effects of feedback for emergency ambulance staff: a systematic mixed studies review and meta-analysis",
+   "year": 2023,
+   "doi": "https://doi.org/10.1136/bmjqs-2022-015634",
+   "venue": "BMJ Quality & Safety",
+   "cites": 50,
+   "authors": [
+    "Caitlin Wilson",
+    "Gillian Janes",
+    "Rebecca Lawton"
+   ]
+  },
+  {
+   "title": "Improving healthcare resource management through demand prediction and staff scheduling",
+   "year": 2016,
+   "doi": null,
+   "venue": "TigerPrints (Clemson University)",
+   "cites": 3,
+   "authors": [
+    "Nazanin Zinouri"
+   ]
+  },
+  {
+   "title": "Ambulance Emergency Response Optimization in Developing Countries",
+   "year": 2020,
+   "doi": "https://doi.org/10.1287/opre.2019.1969",
+   "venue": "Operations Research",
+   "cites": 130,
+   "authors": [
+    "Justin J. Boutilier",
+    "Timothy C. Y. Chan"
+   ]
+  },
+  {
+   "title": "Forecasting the daily demand for emergency medical ambulances in England and Wales: a benchmark model and external validation",
+   "year": 2023,
+   "doi": "https://doi.org/10.1186/s12911-023-02218-z",
+   "venue": "BMC Medical Informatics and Decision Making",
+   "cites": 16,
+   "authors": [
+    "Thomas Monks",
+    "Alison L. Harper",
+    "Michael Patrick Allen"
+   ]
+  },
+  {
+   "title": "An Empirical Analysis of the Effect of Ambulance Offload Delay on the Efficiency of the Ambulance System",
+   "year": 2026,
+   "doi": "https://doi.org/10.3390/app16042074",
+   "venue": "Applied Sciences",
+   "cites": 3,
+   "authors": [
+    "Mengyu Li",
+    "Xiang Zhong",
+    "Judah Goldstein"
+   ]
+  },
+  {
+   "title": "Patient safety in ambulance services: a scoping review",
+   "year": 2015,
+   "doi": "https://doi.org/10.3310/hsdr03210",
+   "venue": "Health Services and Delivery Research",
+   "cites": 75,
+   "authors": [
+    "Joanne D. Fisher",
+    "Karoline Freeman",
+    "Aileen Clarke"
+   ]
+  },
+  {
+   "title": "Computational methods for static allocation and real-time redeployment of ambulances",
+   "year": 2008,
+   "doi": null,
+   "venue": "eCommons (Cornell University)",
+   "cites": 31,
+   "authors": [
+    "Mateo Restrepo"
+   ]
+  }
+ ],
+ "distribution-free staffing service level guarantee": [
+  {
+   "title": "Staffing and scheduling under nonstationary demand for service: A literature review",
+   "year": 2015,
+   "doi": "https://doi.org/10.1016/j.omega.2015.04.002",
+   "venue": "Omega",
+   "cites": 193,
+   "authors": [
+    "Mieke Defraeye",
+    "Inneke Van Nieuwenhuyse"
+   ]
+  },
+  {
+   "title": "Labor staffing and scheduling models for controlling service levels",
+   "year": 1997,
+   "doi": "https://doi.org/10.1002/(sici)1520-6750(199712)44:8<719::aid-nav2>3.0.co;2-d",
+   "venue": "Naval Research Logistics (NRL)",
+   "cites": 77,
+   "authors": [
+    "Gary M. Thompson"
+   ]
+  },
+  {
+   "title": "Staffing, Routing, and Payment to Trade off Speed and Quality in Large Service Systems",
+   "year": 2019,
+   "doi": "https://doi.org/10.1287/opre.2018.1838",
+   "venue": "Operations Research",
+   "cites": 51,
+   "authors": [
+    "Dongyuan Zhan",
+    "Amy R. Ward"
+   ]
+  },
+  {
+   "title": "Distribution Loss Minimization With Guaranteed Error Bound",
+   "year": 2014,
+   "doi": "https://doi.org/10.1109/tsg.2013.2288976",
+   "venue": "IEEE Transactions on Smart Grid",
+   "cites": 87,
+   "authors": [
+    "Takeru Inoue",
+    "Takano Keiji",
+    "Takayuki Watanabe"
+   ]
+  },
+  {
+   "title": "Self-service technology in supermarkets \u2013 Do frontline staff still matter?",
+   "year": 2020,
+   "doi": "https://doi.org/10.1016/j.jretconser.2020.102356",
+   "venue": "Journal of Retailing and Consumer Services",
+   "cites": 91,
+   "authors": [
+    "Piyush Sharma",
+    "Akiko Ueno",
+    "Russel Philip John Kingshott"
+   ]
+  },
+  {
+   "title": "SATISFACTION LEVELS OF FREE MATERNITY SERVICES AT KABARNET COUNTY HOSPITAL",
+   "year": 2018,
+   "doi": null,
+   "venue": "Global Journal of Health Sciences",
+   "cites": 2,
+   "authors": [
+    "Emily Chesumei",
+    "Joseph Kiplangat Mutai",
+    "Beatrice Nyanchama Kiage"
+   ]
+  },
+  {
+   "title": "Service Design From Staffing to Outsourcing: Analysis of the Literature From the Last Decade",
+   "year": 2022,
+   "doi": "https://doi.org/10.4018/ijssmet.297493",
+   "venue": "International Journal of Service Science Management Engineering and Technology",
+   "cites": 1,
+   "authors": [
+    "Carlos Jer\u00f3nimo",
+    "Leandro Pereira",
+    "Renato Lopes Da Costa"
+   ]
+  },
+  {
+   "title": "A multi-channel queue model to optimize service level and staff availability in bank industry",
+   "year": 2024,
+   "doi": "https://doi.org/10.1051/ro/2024169",
+   "venue": "RAIRO - Operations Research",
+   "cites": 5,
+   "authors": [
+    "Abbas Ali Rezaee",
+    "Mohammad Akbari"
+   ]
+  },
+  {
+   "title": "Modeling the Effects of a Service Guarantee on Perceived Service Quality Using Alternating Conditional Expectations (ACE)*",
+   "year": 2002,
+   "doi": "https://doi.org/10.1111/j.1540-5915.2002.tb01648.x",
+   "venue": "Decision Sciences",
+   "cites": 41,
+   "authors": [
+    "Chee\u2010Chuong Sum",
+    "Yongmoon Lee",
+    "Julie M. Hays"
+   ]
+  },
+  {
+   "title": "Service Level Agreements in Service-Oriented Architecture Environments",
+   "year": 2008,
+   "doi": "https://doi.org/10.1184/r1/6583811.v1",
+   "venue": "KiltHub Repository",
+   "cites": 69,
+   "authors": [
+    "Philip Bianco",
+    "Grace A. Lewis",
+    "Paulo Merson"
+   ]
+  },
+  {
+   "title": "Pulling Together: A Guide for Front-Line Staff, Student Services, and Advisors",
+   "year": 2018,
+   "doi": null,
+   "venue": "Biblioth\u00e8que et Archives nationales du Qu\u00e9bec (Qu\u00e9bec government)",
+   "cites": 84,
+   "authors": [
+    "Ian Cull",
+    "Robert L. A. Hancock",
+    "Stephanie McKeown"
+   ]
+  },
+  {
+   "title": "Integrated staff scheduling at a medical emergency service: An optimisation approach",
+   "year": 2018,
+   "doi": "https://doi.org/10.1016/j.eswa.2018.06.017",
+   "venue": "Expert Systems with Applications",
+   "cites": 43,
+   "authors": [
+    "Hendrik Vermuyten",
+    "Joana Namorado Rosa",
+    "In\u00eas Marqu\u00e9s"
+   ]
+  },
+  {
+   "title": "Staff burnout in intellectual disability services",
+   "year": 2014,
+   "doi": null,
+   "venue": "Staffordshire Online Repository (Staffordshire University)",
+   "cites": 0,
+   "authors": [
+    "Shead",
+    "Jennifer Louise"
+   ]
+  },
+  {
+   "title": "Nurse Staffing Under Absenteeism: A Distributionally Robust Optimization Approach",
+   "year": 2025,
+   "doi": "https://doi.org/10.1287/msom.2023.0398",
+   "venue": "Manufacturing & Service Operations Management",
+   "cites": 39,
+   "authors": [
+    "Minseok Ryu",
+    "Ruiwei Jiang"
+   ]
+  },
+  {
+   "title": "The relationship between talent management, employee engagement and service quality of support staff in a South African Higher Education Institution",
+   "year": 2014,
+   "doi": null,
+   "venue": "Boloka Institutional Repository (North-west University)",
+   "cites": 9,
+   "authors": [
+    "Puleng Grace Mogwere"
+   ]
+  }
+ ],
+ "EMS demand forecasting prediction intervals": [
+  {
+   "title": "Fuzzy Prediction Interval Models for Forecasting Renewable Resources and Loads in Microgrids",
+   "year": 2014,
+   "doi": "https://doi.org/10.1109/tsg.2014.2377178",
+   "venue": "IEEE Transactions on Smart Grid",
+   "cites": 215,
+   "authors": [
+    "Doris A. S\u00e1ez",
+    "Fernand Avila",
+    "Daniel E. Olivares"
+   ]
+  },
+  {
+   "title": "Time series modelling to forecast prehospital EMS demand for diabetic emergencies",
+   "year": 2017,
+   "doi": "https://doi.org/10.1186/s12913-017-2280-6",
+   "venue": "BMC Health Services Research",
+   "cites": 52,
+   "authors": [
+    "Melanie Villani",
+    "Arul Earnest",
+    "Natalie Nanayakkara"
+   ]
+  },
+  {
+   "title": "Effect of Daily Forecasting Frequency on Rolling-Horizon-Based EMS Reducing Electrical Demand Uncertainty in Microgrids",
+   "year": 2021,
+   "doi": "https://doi.org/10.3390/en14061598",
+   "venue": "Energies",
+   "cites": 14,
+   "authors": [
+    "Giuseppe La Tona",
+    "Maria Carmela Di Piazza",
+    "Massimiliano Luna"
+   ]
+  },
+  {
+   "title": "Prediction Interval Modeling Tuned by an Improved Teaching Learning Algorithm Applied to Load Forecasting in Microgrids",
+   "year": 2015,
+   "doi": "https://doi.org/10.1109/ssci.2015.100",
+   "venue": "IEEE Symposium Series on Computational Intelligence (SSCI)",
+   "cites": 11,
+   "authors": [
+    "Franka Veltman",
+    "Luis G. Mar\u00edn",
+    "Doris A. S\u00e1ez"
+   ]
+  },
+  {
+   "title": "Copula Informed Quantile Regression for Probabilistic EV Charging Demand Forecasting",
+   "year": 2026,
+   "doi": "https://doi.org/10.2139/ssrn.7044790",
+   "venue": "SSRN Electronic Journal",
+   "cites": 0,
+   "authors": [
+    "Silvana Matrone",
+    "Jinfei Han",
+    "Emanu\u00e8le Ogliari"
+   ]
+  },
+  {
+   "title": "ST-EMS: A Spatio-Temporal Framework for Forecasting Emergency Medical Service Demand and Adaptive Hospital Routing",
+   "year": 2025,
+   "doi": "https://doi.org/10.1145/3748636.3763216",
+   "venue": "ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems (SIGSPATIAL GIS)",
+   "cites": 0,
+   "authors": [
+    "Sai Deepthi Yeddula",
+    "Sarath S. Shanker",
+    "Abhijeet Bhattacharya"
+   ]
+  },
+  {
+   "title": "Long-Term Fine-Grained Forecasts of Emergency Demand Using EMS Big Data and Population Estimates",
+   "year": 2024,
+   "doi": "https://doi.org/10.4018/ijbdia.358106",
+   "venue": "International Journal of Big Data Intelligence and Applications",
+   "cites": 0,
+   "authors": [
+    "Masaki Kaneda",
+    "Masahide Nakamura",
+    "Sinan Chen"
+   ]
+  },
+  {
+   "title": "The EMS Crisis in Retrospect",
+   "year": 2000,
+   "doi": "https://doi.org/10.3386/w8035",
+   "venue": "National Bureau of Economic Research",
+   "cites": 139,
+   "authors": [
+    "Barry J. Eichengreen"
+   ]
+  },
+  {
+   "title": "Probabilistic Forecast of EV Charging Demand with Copula Informed Quantile Regression",
+   "year": 2025,
+   "doi": "https://doi.org/10.2139/ssrn.5871888",
+   "venue": "SSRN Electronic Journal",
+   "cites": 0,
+   "authors": [
+    "Silvana Matrone",
+    "Emanu\u00e8le Ogliari",
+    "Elham Shirazi"
+   ]
+  },
+  {
+   "title": "DA-LSTM: A dynamic drift-adaptive learning framework for interval load forecasting with LSTM networks",
+   "year": 2023,
+   "doi": "https://doi.org/10.1016/j.engappai.2023.106480",
+   "venue": "Engineering Applications of Artificial Intelligence",
+   "cites": 114,
+   "authors": [
+    "Firas Bayram",
+    "Phil Aupke",
+    "Bestoun S. Ahmed"
+   ]
+  },
+  {
+   "title": "Prediction interval methodology based on fuzzy numbers and its extension to fuzzy systems and neural networks",
+   "year": 2018,
+   "doi": "https://doi.org/10.1016/j.eswa.2018.10.043",
+   "venue": "Expert Systems with Applications",
+   "cites": 84,
+   "authors": [
+    "Luis G. Mar\u00edn",
+    "Nicol\u00e1s Cruz",
+    "Doris A. S\u00e1ez"
+   ]
+  },
+  {
+   "title": "An Insight of Deep Learning Based Demand Forecasting in Smart Grids",
+   "year": 2023,
+   "doi": "https://doi.org/10.3390/s23031467",
+   "venue": "Sensors",
+   "cites": 119,
+   "authors": [
+    "Javier Manuel Aguiar-P\u00e9rez",
+    "Mar\u00eda A. P\u00e9rez-Ju\u00e1rez"
+   ]
+  },
+  {
+   "title": "Robust Energy Management System Based on Interval Fuzzy Models",
+   "year": 2015,
+   "doi": "https://doi.org/10.1109/tcst.2015.2421334",
+   "venue": "IEEE Transactions on Control Systems Technology",
+   "cites": 53,
+   "authors": [
+    "Felipe Valencia",
+    "Doris A. S\u00e1ez",
+    "Jorge Collado"
+   ]
+  },
+  {
+   "title": "GRU-Based Short-Term Forecasting for Microgrid Operation: Modeling and Simulation Using Simulink",
+   "year": 2026,
+   "doi": "https://doi.org/10.3390/a19020116",
+   "venue": "Algorithms",
+   "cites": 2,
+   "authors": [
+    "Yu-Kuei Liu",
+    "Goran Rafajlovski",
+    "Saiful Islam"
+   ]
+  },
+  {
+   "title": "A Chance-Constrained Interval-Inexact Energy Systems Planning Model (CCIESM) for City B Based on Power Demand Probabilistic Forecasting",
+   "year": 2013,
+   "doi": "https://doi.org/10.4028/www.scientific.net/amr.753-755.1891",
+   "venue": "Advanced materials research",
+   "cites": 2,
+   "authors": [
+    "Zong Wu Wang",
+    "Guohe Huang",
+    "Yan Tao Niu"
+   ]
+  }
+ ],
+ "quantile forecast ambulance deployment": [
+  {
+   "title": "Machine learning-based forecasting of firemen ambulances\u2019 turnaround time in hospitals, considering the COVID-19 impact",
+   "year": 2021,
+   "doi": "https://doi.org/10.1016/j.asoc.2021.107561",
+   "venue": "Applied Soft Computing",
+   "cites": 22,
+   "authors": [
+    "Selene Cerna",
+    "H\u00e9ber H. Arcolezi",
+    "Christophe Guyeux"
+   ]
+  },
+  {
+   "title": "Quantitative Analysis of Ambulance Location-allocation and Ambulance State Prediction",
+   "year": 2015,
+   "doi": "https://doi.org/10.3384/lic.diva-113346",
+   "venue": "Link\u00f6ping University Electronic Press eBooks",
+   "cites": 14,
+   "authors": [
+    "Ngoc-Hien Nguyen"
+   ]
+  },
+  {
+   "title": "Optimizing Ambulance Routing with Time Series Forecasting for Hospital Readiness and Emergency Call Patterns",
+   "year": 2026,
+   "doi": "https://doi.org/10.46254/ap07.20260224",
+   "venue": "International Conference on Industrial Engineering and Operations Management (IEOM)",
+   "cites": 0,
+   "authors": [
+    "Asif Salman Khan Tanim",
+    "Zahin Ar Rafi",
+    "Ferdous Sarwar"
+   ]
+  },
+  {
+   "title": "A Spatio-Temporal Point Process Model for Ambulance Demand",
+   "year": 2014,
+   "doi": "https://doi.org/10.1080/01621459.2014.941466",
+   "venue": "Journal of the American Statistical Association",
+   "cites": 91,
+   "authors": [
+    "Zhengyi Zhou",
+    "David S. Matteson",
+    "Dawn B. Woodard"
+   ]
+  },
+  {
+   "title": "Efficiency and fairness in ambulance planning",
+   "year": 2017,
+   "doi": null,
+   "venue": "Centrum Wiskunde & Informatica (CWI), the national research institute for mathematics and computer science in the Netherlands",
+   "cites": 3,
+   "authors": [
+    "Caroline Jeanne Jagtenberg"
+   ]
+  },
+  {
+   "title": "New heuristics for the operation of an ambulance fleet under uncertainty",
+   "year": 2026,
+   "doi": "https://doi.org/10.1016/j.cor.2026.107459",
+   "venue": "Computers & Operations Research",
+   "cites": 2,
+   "authors": [
+    "Vincent Guigues",
+    "Anton J. Kleywegt",
+    "Victor Hugo Nascimento"
+   ]
+  },
+  {
+   "title": "Preserving Geo-Indistinguishability of the Emergency Scene to Predict Ambulance Response Time",
+   "year": 2021,
+   "doi": "https://doi.org/10.3390/mca26030056",
+   "venue": "Mathematical and Computational Applications",
+   "cites": 15,
+   "authors": [
+    "H\u00e9ber H. Arcolezi",
+    "Selene Cerna",
+    "Christophe Guyeux"
+   ]
+  },
+  {
+   "title": "Modeling Metropolitan-Area Ambulance Mobility Under Blue Light Conditions",
+   "year": 2018,
+   "doi": "https://doi.org/10.1109/access.2018.2886852",
+   "venue": "IEEE Access",
+   "cites": 25,
+   "authors": [
+    "Marcus Poulton",
+    "Anastasios Noulas",
+    "David J. Weston"
+   ]
+  },
+  {
+   "title": "Hierarchical Time Series Forecasting in Emergency Medical Services",
+   "year": 2024,
+   "doi": "https://doi.org/10.1177/10946705241232169",
+   "venue": "Journal of Service Research",
+   "cites": 37,
+   "authors": [
+    "Bahman Rostami-Tabar",
+    "Rob J. Hyndman"
+   ]
+  },
+  {
+   "title": "Dispatching strategy with lookahead for the real-time management of ambulances",
+   "year": 2024,
+   "doi": null,
+   "venue": "Institutional Research Information System University of Turin (University of Turin)",
+   "cites": 1,
+   "authors": [
+    "Alessandro Druetto",
+    "Roberto Aringhieri",
+    "Davide Duma"
+   ]
+  },
+  {
+   "title": "Predicting Ambulance Patient Wait Times: A Multicenter Derivation and Validation Study",
+   "year": 2021,
+   "doi": "https://doi.org/10.1016/j.annemergmed.2021.02.010",
+   "venue": "Annals of Emergency Medicine",
+   "cites": 8,
+   "authors": [
+    "Katie Walker",
+    "Jirayus Jiarpakdee",
+    "Anne Loupis"
+   ]
+  },
+  {
+   "title": "Adaptive Modeling of Uncertainties for Traffic Forecasting",
+   "year": 2023,
+   "doi": "https://doi.org/10.1109/tits.2023.3327100",
+   "venue": "IEEE Transactions on Intelligent Transportation Systems",
+   "cites": 30,
+   "authors": [
+    "Ying Wu",
+    "Yongchao Ye",
+    "Adnan Zeb"
+   ]
+  },
+  {
+   "title": "Uncertainty Quantification for Traffic Forecasting: A Unified Approach",
+   "year": 2023,
+   "doi": "https://doi.org/10.1109/icde55515.2023.00081",
+   "venue": "IEEE International Conference on Data Engineering (ICDE)",
+   "cites": 60,
+   "authors": [
+    "Weizhu Qian",
+    "Dalin Zhang",
+    "Yan Li Zhao"
+   ]
+  },
+  {
+   "title": "Policies for the operation of an ambulance fleet under uncertainty based on a new preparedness metric",
+   "year": 2026,
+   "doi": "https://doi.org/10.1080/01605682.2026.2716403",
+   "venue": "Journal of the Operational Research Society",
+   "cites": 0,
+   "authors": [
+    "Vincent Guigues",
+    "Anton J. Kleywegt",
+    "Victor Hugo Nascimento"
+   ]
+  },
+  {
+   "title": "Foundation models for clean energy forecasting: A comprehensive review",
+   "year": 2025,
+   "doi": "https://doi.org/10.1016/j.rser.2025.116452",
+   "venue": "Renewable and Sustainable Energy Reviews",
+   "cites": 55,
+   "authors": [
+    "Md Meftahul Ferdaus",
+    "Tanmoy Dam",
+    "Md Rasel Sarkar"
+   ]
+  }
+ ],
+ "prediction intervals call volume staffing decision": [
+  {
+   "title": "Beyond Point Forecasts: A Dynamically Adaptive Conformal Prediction and Explainable AI Framework for 112 Emergency Call Volume Forecasting",
+   "year": 2026,
+   "doi": "https://doi.org/10.2139/ssrn.7111693",
+   "venue": "SSRN Electronic Journal",
+   "cites": 0,
+   "authors": [
+    "Muhammet Rojhat Kara",
+    "Fatih Budak"
+   ]
+  },
+  {
+   "title": "Flexible nurse staffing based on hourly bed census predictions",
+   "year": 2014,
+   "doi": "https://doi.org/10.1016/j.ijpe.2014.12.007",
+   "venue": "International Journal of Production Economics",
+   "cites": 69,
+   "authors": [
+    "Nikky Kortbeek",
+    "Aleida Braaksma",
+    "Charlotte Burger"
+   ]
+  },
+  {
+   "title": "Bed Census Predictions and Nurse Staffing",
+   "year": 2021,
+   "doi": "https://doi.org/10.1007/978-3-030-60212-3_9",
+   "venue": "International series in management science/operations research/International series in operations research & management science",
+   "cites": 3,
+   "authors": [
+    "Aleida Braaksma",
+    "Nikky Kortbeek",
+    "Richard J. Boucherie"
+   ]
+  },
+  {
+   "title": "Predicting Emergency Department Volume Using Forecasting Methods to Create a \u201cSurge Response\u201d for Noncrisis Events",
+   "year": 2012,
+   "doi": "https://doi.org/10.1111/j.1553-2712.2012.01359.x",
+   "venue": "Academic Emergency Medicine",
+   "cites": 31,
+   "authors": [
+    "Valerie J. Chase",
+    "Amy E. M. Cohn",
+    "Timothy A. Peterson"
+   ]
+  },
+  {
+   "title": "Optimizing Prediction Intervals by Tuning Random Forest via Meta-Validation",
+   "year": 2018,
+   "doi": "https://doi.org/10.48550/arxiv.1801.07194",
+   "venue": "arXiv (Cornell University)",
+   "cites": 18,
+   "authors": [
+    "Sean Bayley",
+    "Davide Falessi"
+   ]
+  },
+  {
+   "title": "Improving healthcare resource management through demand prediction and staff scheduling",
+   "year": 2016,
+   "doi": null,
+   "venue": "TigerPrints (Clemson University)",
+   "cites": 3,
+   "authors": [
+    "Nazanin Zinouri"
+   ]
+  },
+  {
+   "title": "Stochastic optimization of staffing for multiskill call centers",
+   "year": 2019,
+   "doi": "https://doi.org/10.71781/10847",
+   "venue": null,
+   "cites": 0,
+   "authors": [
+    "Thuy Anh Ta"
+   ]
+  },
+  {
+   "title": "Simulation-Based Decision Support for Call Centre Staffing Optimisation: A Case Study from the Palestinian Telecom Sector",
+   "year": 2025,
+   "doi": "https://doi.org/10.31181/dmame8220251497",
+   "venue": "Decision Making Applications in Management and Engineering",
+   "cites": 2,
+   "authors": [
+    "Tamer Haddad",
+    "Ramiz Assaf",
+    "Siraj K. Zahran"
+   ]
+  },
+  {
+   "title": "Reliable Prediction Intervals and Bayesian Estimation for Demand Rates of Slow-Moving Inventory",
+   "year": 2007,
+   "doi": "https://doi.org/10.12794/metadc3946",
+   "venue": "University of North Texas Digital Library (University of North Texas)",
+   "cites": 1,
+   "authors": [
+    "Matthew Lindsey"
+   ]
+  },
+  {
+   "title": "Nurse staffing, medical staffing and mortality in Intensive Care: An observational study",
+   "year": 2014,
+   "doi": "https://doi.org/10.1016/j.ijnurstu.2014.02.007",
+   "venue": "International Journal of Nursing Studies",
+   "cites": 236,
+   "authors": [
+    "Elizabeth West",
+    "David Barron",
+    "David A Harrison"
+   ]
+  },
+  {
+   "title": "Effects of different intracranial volume correction methods on univariate sex differences in grey matter volume and multivariate sex prediction",
+   "year": 2020,
+   "doi": "https://doi.org/10.1038/s41598-020-69361-9",
+   "venue": "Scientific Reports",
+   "cites": 106,
+   "authors": [
+    "Carles Sanchis\u2010Segura",
+    "M. Victoria Ib\u00e1\u00f1ez",
+    "Naiara Aguirre"
+   ]
+  },
+  {
+   "title": "Enhancing Call Center Efficiency: Data Driven Workload Prediction and Workforce Optimization",
+   "year": 2023,
+   "doi": "https://doi.org/10.55549/epstem.1406245",
+   "venue": "The Eurasia Proceedings of Science Technology Engineering and Mathematics",
+   "cites": 9,
+   "authors": [
+    "Muhammet Ali KADIOGLU",
+    "Bilal Alata\u015f"
+   ]
+  },
+  {
+   "title": "Staffing Levels are the Most Important Factor Influencing Police Response Times",
+   "year": 2024,
+   "doi": "https://doi.org/10.21428/cb6ab371.893efeb7",
+   "venue": "Policing A Journal of Policy and Practice",
+   "cites": 30,
+   "authors": [
+    "Scott M. Mourtgos",
+    "Ian Tyler Adams",
+    "Justin Nix"
+   ]
+  },
+  {
+   "title": "Call Arrival Forecasting Using Feature Selection and Bayesian Optimization in Machine Learning and Deep Learning Models",
+   "year": 2025,
+   "doi": "https://doi.org/10.70395/cunas.1515477",
+   "venue": "Cukurova University Journal of Natural and Applied Sciences",
+   "cites": 0,
+   "authors": [
+    "Rukia Nakkazi",
+    "Mehmet Fatih Akay"
+   ]
+  },
+  {
+   "title": "The Effects of Human Resource Management Decisions on Shareholder Value",
+   "year": 1989,
+   "doi": "https://doi.org/10.1177/001979399004300313",
+   "venue": "Industrial and Labor Relations Review",
+   "cites": 118,
+   "authors": [
+    "John Maron Abowd",
+    "George T. Milkovich",
+    "John M. Hannon"
+   ]
+  }
+ ],
+ "adaptive conformal inference operations": [
+  {
+   "title": "Cost-Aware Adaptive Conformal Inference for Runtime Assurance in Dynamic Environments",
+   "year": 2026,
+   "doi": "https://doi.org/10.48550/arxiv.2605.24463",
+   "venue": "arXiv (Cornell University)",
+   "cites": 0,
+   "authors": [
+    "Taoran Wu",
+    "Jingduo Pan",
+    "C.-H. Luke Ong"
+   ]
+  },
+  {
+   "title": "Multi-LLM Adaptive Conformal Inference for Reliable LLM Responses",
+   "year": 2026,
+   "doi": "https://doi.org/10.48550/arxiv.2602.01285",
+   "venue": "International Conference on Learning Representations",
+   "cites": 3,
+   "authors": [
+    "Kangjun Noh",
+    "Seongchan Lee",
+    "Ilmun Kim"
+   ]
+  },
+  {
+   "title": "Safe Control using Learned Safety Filters and Adaptive Conformal Inference",
+   "year": 2026,
+   "doi": "https://doi.org/10.48550/arxiv.2604.18482",
+   "venue": "arXiv (Cornell University)",
+   "cites": 3,
+   "authors": [
+    "Sacha Huriot",
+    "Ihab Tabbara",
+    "Hussein Sibai"
+   ]
+  },
+  {
+   "title": "On the Correspondence Between Conformance Testing and Regular Inference",
+   "year": 2005,
+   "doi": "https://doi.org/10.1007/978-3-540-31984-9_14",
+   "venue": "Lecture notes in computer science",
+   "cites": 110,
+   "authors": [
+    "Therese Berg",
+    "Olga Grinchtein",
+    "Bengt J\u00f6nsson"
+   ]
+  },
+  {
+   "title": "Benchmarking Transformer Variants for Hour-Ahead PV Forecasting: PatchTST with Adaptive Conformal Inference",
+   "year": 2025,
+   "doi": "https://doi.org/10.3390/en18185000",
+   "venue": "Energies",
+   "cites": 40,
+   "authors": [
+    "Vishnu Suresh"
+   ]
+  },
+  {
+   "title": "Predictive Inference with Feature Conformal Prediction",
+   "year": 2022,
+   "doi": "https://doi.org/10.48550/arxiv.2210.00173",
+   "venue": "arXiv (Cornell University)",
+   "cites": 23,
+   "authors": [
+    "Jiaye Teng",
+    "Wen, Chuan",
+    "Dinghuai Zhang"
+   ]
+  },
+  {
+   "title": "Conformal inference is (almost) free for neural networks trained with early stopping",
+   "year": 2023,
+   "doi": "https://doi.org/10.48550/arxiv.2301.11556",
+   "venue": "arXiv (Cornell University)",
+   "cites": 25,
+   "authors": [
+    "Ziyi Liang",
+    "Yanfei Zhou",
+    "Matteo Sesia"
+   ]
+  },
+  {
+   "title": "Conformal inference for random objects",
+   "year": 2025,
+   "doi": "https://doi.org/10.1214/25-aos2495",
+   "venue": "The Annals of Statistics",
+   "cites": 13,
+   "authors": [
+    "Hang Zhou",
+    "Hans-Georg M\u00fcller"
+   ]
+  },
+  {
+   "title": "Statistical Verification of Autonomous Systems using Surrogate Models and Conformal Inference",
+   "year": 2020,
+   "doi": "https://doi.org/10.48550/arxiv.2004.00279",
+   "venue": "arXiv (Cornell University)",
+   "cites": 18,
+   "authors": [
+    "Chuchu Fan",
+    "Xin Qin",
+    "Yuan Xia"
+   ]
+  },
+  {
+   "title": "FastBERT: a Self-distilling BERT with Adaptive Inference Time",
+   "year": 2020,
+   "doi": "https://doi.org/10.18653/v1/2020.acl-main.537",
+   "venue": "Proceedings of the conference - Association for Computational Linguistics. Meeting",
+   "cites": 506,
+   "authors": [
+    "Weijie Liu",
+    "Peng Zhou",
+    "Zhiruo Wang"
+   ]
+  },
+  {
+   "title": "Everywhere Valid Bounds on False Discovery Proportions in Conformal Inference",
+   "year": 2026,
+   "doi": "https://doi.org/10.48550/arxiv.2605.20726",
+   "venue": "arXiv (Cornell University)",
+   "cites": 0,
+   "authors": [
+    "Ziang Song",
+    "Ying Jin",
+    "Emmanuel J. Cand\u00e8s"
+   ]
+  },
+  {
+   "title": "Bias-Corrected Adaptive Conformal Inference for Multi-Horizon Time Series Forecasting",
+   "year": 2026,
+   "doi": "https://doi.org/10.48550/arxiv.2604.13253",
+   "venue": "arXiv (Cornell University)",
+   "cites": 1,
+   "authors": [
+    "Ankit Hemant Lade",
+    "Sai Krishna J.",
+    "Indar Kumar"
+   ]
+  },
+  {
+   "title": "Stateful Conformer with Cache-Based Inference for Streaming Automatic Speech Recognition",
+   "year": 2024,
+   "doi": "https://doi.org/10.1109/icassp48485.2024.10446861",
+   "venue": "IEEE International Conference on Acoustics Speech and Signal Processing",
+   "cites": 72,
+   "authors": [
+    "Vahid Noroozi",
+    "Somshubra Majumdar",
+    "Ankur Kumar"
+   ]
+  },
+  {
+   "title": "Transductive Conformal Inference for Full Ranking",
+   "year": 2025,
+   "doi": "https://doi.org/10.48550/arxiv.2501.11384",
+   "venue": "arXiv (Cornell University)",
+   "cites": 4,
+   "authors": [
+    "Jean-Baptiste Fermanian",
+    "Pierre Humbert",
+    "Gilles Blanchard"
+   ]
+  },
+  {
+   "title": "Statistical Verification using Surrogate Models and Conformal Inference and a Comparison with Risk-Aware Verification",
+   "year": 2023,
+   "doi": "https://doi.org/10.1145/3635160",
+   "venue": "ACM Transactions on Cyber-Physical Systems",
+   "cites": 14,
+   "authors": [
+    "Xin Qin",
+    "Yuan Xia",
+    "Aditya Zutshi"
+   ]
+  }
+ ],
+ "conformal prediction queueing capacity planning": [
+  {
+   "title": "Queuing of Concurrent Movement Plans by Basal Ganglia",
+   "year": 2013,
+   "doi": "https://doi.org/10.1523/jneurosci.4934-12.2013",
+   "venue": "Journal of Neuroscience",
+   "cites": 30,
+   "authors": [
+    "Neha Bhutani",
+    "Ramakrishnan Sureshbabu",
+    "Ausaf Ahmed Farooqui"
+   ]
+  },
+  {
+   "title": "The Operational Analysis of Queueing Network Models",
+   "year": 1978,
+   "doi": "https://doi.org/10.1145/356733.356735",
+   "venue": "ACM Computing Surveys",
+   "cites": 649,
+   "authors": [
+    "Peter James Denning",
+    "Jeffrey P. Buzen"
+   ]
+  },
+  {
+   "title": "Parameter Tolerance in Capacity Planning Models",
+   "year": 2017,
+   "doi": "https://doi.org/10.24251/hicss.2017.190",
+   "venue": "Hawaii International Conference on System Sciences (HICSS)",
+   "cites": 0,
+   "authors": [
+    "Ying Tat Leung",
+    "Manjunath Kamath",
+    "Juan Ma"
+   ]
+  },
+  {
+   "title": "Towards Sustainable EV Infrastructure: Site Selection and Capacity Planning with Charger Type Differentiation and Queuing-Theoretic Modeling",
+   "year": 2025,
+   "doi": "https://doi.org/10.3390/wevj16110600",
+   "venue": "World Electric Vehicle Journal",
+   "cites": 7,
+   "authors": [
+    "Zhihao Wang",
+    "Jinting Zou",
+    "Jintong Tu"
+   ]
+  },
+  {
+   "title": "QoS-Aware Capacity Planning of Networked PEV Charging Infrastructure",
+   "year": 2020,
+   "doi": "https://doi.org/10.1109/ojvt.2020.2979820",
+   "venue": "IEEE Open Journal of Vehicular Technology",
+   "cites": 17,
+   "authors": [
+    "Ahmed Abdalrahman",
+    "Weihua Zhuang"
+   ]
+  },
+  {
+   "title": "Conformal prediction-based sequential scheduling for container terminal operations under uncertainty",
+   "year": 2026,
+   "doi": "https://doi.org/10.1016/j.orp.2026.100409",
+   "venue": "Operations Research Perspectives",
+   "cites": 2,
+   "authors": [
+    "Ndifelani Makhado",
+    "Matthews Sejeso",
+    "Thulane Paepae"
+   ]
+  },
+  {
+   "title": "Workshop summary: \"applications of queuing models to ADP system performance prediction\"",
+   "year": 1977,
+   "doi": "https://doi.org/10.1145/1044829.1044830",
+   "venue": "ACM SIGMETRICS Performance Evaluation Review",
+   "cites": 0,
+   "authors": [
+    "Mitchell G. Spiegel"
+   ]
+  },
+  {
+   "title": "Performance analysis and optimization of queueing network production systems considering non-conforming products rework and departure",
+   "year": 2018,
+   "doi": "https://doi.org/10.1299/jamdsm.2018jamdsm0052",
+   "venue": "Journal of Advanced Mechanical Design Systems and Manufacturing",
+   "cites": 2,
+   "authors": [
+    "Changjun Li",
+    "Jinbin Zhang",
+    "Bo Li"
+   ]
+  },
+  {
+   "title": "Analysis of On-Ramp Capacities by Monte Carlo Simulation and Queuing Theory",
+   "year": 1964,
+   "doi": "https://doi.org/10.5703/1288284313661",
+   "venue": "Purdue e-Pubs (Purdue University System)",
+   "cites": 3,
+   "authors": [
+    "R F Dawson"
+   ]
+  },
+  {
+   "title": "On demand elastic capacity planning for service auto-scaling",
+   "year": 2016,
+   "doi": "https://doi.org/10.1109/infocom.2016.7524616",
+   "venue": "IEEE Conference on Computer Communications (INFOCOM)",
+   "cites": 10,
+   "authors": [
+    "Pavel Chuprikov",
+    "Sergey Nikolenko",
+    "Kirill Kogan"
+   ]
+  },
+  {
+   "title": "Capacity Planning and Control with Advanced Information",
+   "year": 2017,
+   "doi": null,
+   "venue": null,
+   "cites": 0,
+   "authors": [
+    "Julian Kurz"
+   ]
+  },
+  {
+   "title": "Characterizing user workload for capacity planning",
+   "year": 2010,
+   "doi": "https://doi.org/10.14288/1.0051898",
+   "venue": "cIRcle (University of British Columbia)",
+   "cites": 2,
+   "authors": [
+    "Jee Fung Pang"
+   ]
+  },
+  {
+   "title": "Bayesian Optimization With Formal Safety Guarantees via Online Conformal Prediction",
+   "year": 2024,
+   "doi": "https://doi.org/10.1109/jstsp.2024.3422825",
+   "venue": "IEEE Journal of Selected Topics in Signal Processing",
+   "cites": 27,
+   "authors": [
+    "Yunchuan Zhang",
+    "Sangwoo Park",
+    "Osvaldo Simeone"
+   ]
+  },
+  {
+   "title": "Simulation-Based Capacity Planning of a Biofuel Refinery",
+   "year": 2020,
+   "doi": "https://doi.org/10.3390/agronomy10111702",
+   "venue": "Agronomy",
+   "cites": 9,
+   "authors": [
+    "Sojung Kim",
+    "Evi Ofekeze",
+    "James R. Kiniry"
+   ]
+  },
+  {
+   "title": "Value-Chain Automation in Beverage Logistics: Throughput, Capacity, and Cost Avoidance via Queueing Models",
+   "year": 2024,
+   "doi": "https://doi.org/10.32628/cseit251134110",
+   "venue": "International Journal of Scientific Research in Computer Science Engineering and Information Technology",
+   "cites": 11,
+   "authors": [
+    "Olaolu Samuel Adesanya",
+    "Chizoba Michael Okafor",
+    "Omoize Fatimetu Dako"
+   ]
+  }
+ ],
+ "ambulance unit hour staffing New York": [
+  {
+   "title": "Foregoing prehospital care: should ambulance staff always resuscitate?",
+   "year": 1991,
+   "doi": "https://doi.org/10.1136/jme.17.1.19",
+   "venue": "Journal of Medical Ethics",
+   "cites": 44,
+   "authors": [
+    "Kenneth Victor Iserson"
+   ]
+  },
+  {
+   "title": "Bringing Emergency Neurology to Ambulances: Mobile Stroke Unit",
+   "year": 2017,
+   "doi": "https://doi.org/10.1055/s-0037-1607994",
+   "venue": "Seminars in Respiratory and Critical Care Medicine",
+   "cites": 19,
+   "authors": [
+    "Ritvij Bowry",
+    "James C. Grotta"
+   ]
+  },
+  {
+   "title": "Estimating ambulance requirements in Auckland, New Zealand",
+   "year": 1999,
+   "doi": "https://doi.org/10.1145/324898.325361",
+   "venue": "Winter Simulation Conference",
+   "cites": 21,
+   "authors": [
+    "Shane G. Henderson",
+    "Andrew Mason"
+   ]
+  },
+  {
+   "title": "Clinical evaluation of the Emergency Medical Services (EMS) ambulance dispatch-based syndromic surveillance system, New York City",
+   "year": 2003,
+   "doi": "https://doi.org/10.1007/pl00022315",
+   "venue": "Journal of Urban Health",
+   "cites": 52,
+   "authors": [
+    "Jane A. Greenko",
+    "Farzad Mostashari",
+    "Annie D. Fine"
+   ]
+  },
+  {
+   "title": "Performance measurement and the UK emergency ambulance service: Unintended consequences of the ambulance response time targets",
+   "year": 2011,
+   "doi": "https://doi.org/10.1108/09513551111147132",
+   "venue": "International Journal of Public Sector Management",
+   "cites": 69,
+   "authors": [
+    "Paresh Wankhade"
+   ]
+  },
+  {
+   "title": "Ambulance diversion",
+   "year": 1997,
+   "doi": "https://doi.org/10.1080/10903129708958797",
+   "venue": "Prehospital Emergency Care",
+   "cites": 22,
+   "authors": [
+    "Cai Glushak",
+    "Theodore R. Delbridge",
+    "Herbert G. Garrison"
+   ]
+  },
+  {
+   "title": "Staff perceptions and changing role of pre-hospital profession in the UK ambulance services: An exploratory study",
+   "year": 2016,
+   "doi": "https://doi.org/10.1108/ijes-02-2016-0004",
+   "venue": "International Journal of Emergency Services",
+   "cites": 44,
+   "authors": [
+    "Paresh Wankhade"
+   ]
+  },
+  {
+   "title": "Multiple Dimensions of Work Intensity: Ambulance Work as Edgework",
+   "year": 2018,
+   "doi": "https://doi.org/10.1177/0950017018759207",
+   "venue": "Work Employment and Society",
+   "cites": 165,
+   "authors": [
+    "Edward Granter",
+    "Paresh Wankhade",
+    "Leo McCann"
+   ]
+  },
+  {
+   "title": "A guide to setting up a simulation training unit within an ambulance trust",
+   "year": 2010,
+   "doi": "https://doi.org/10.12968/jpar.2010.2.7.49074",
+   "venue": "Journal of Paramedic Practice",
+   "cites": 10,
+   "authors": [
+    "Guillaume Alinier"
+   ]
+  },
+  {
+   "title": "Quantitative Analysis of Ambulance Location-allocation and Ambulance State Prediction",
+   "year": 2015,
+   "doi": "https://doi.org/10.3384/lic.diva-113346",
+   "venue": "Link\u00f6ping University Electronic Press eBooks",
+   "cites": 14,
+   "authors": [
+    "Ngoc-Hien Nguyen"
+   ]
+  },
+  {
+   "title": "Ambulance Emergency Response Optimization in Developing Countries",
+   "year": 2020,
+   "doi": "https://doi.org/10.1287/opre.2019.1969",
+   "venue": "Operations Research",
+   "cites": 130,
+   "authors": [
+    "Justin J. Boutilier",
+    "Timothy C. Y. Chan"
+   ]
+  },
+  {
+   "title": "\u2018The palliative care ambulance\u2019: A qualitative study of patient and caregiver perspectives of an ambulance service",
+   "year": 2023,
+   "doi": "https://doi.org/10.1177/02692163231166760",
+   "venue": "Palliative Medicine",
+   "cites": 19,
+   "authors": [
+    "Aileen Collier",
+    "Ann Dadich",
+    "Cathie Jeffs"
+   ]
+  },
+  {
+   "title": "An Empirical Analysis of the Effect of Ambulance Offload Delay on the Efficiency of the Ambulance System",
+   "year": 2026,
+   "doi": "https://doi.org/10.3390/app16042074",
+   "venue": "Applied Sciences",
+   "cites": 3,
+   "authors": [
+    "Mengyu Li",
+    "Xiang Zhong",
+    "Judah Goldstein"
+   ]
+  },
+  {
+   "title": "Physical fitness and occupational demands of the Belfast ambulance service.",
+   "year": 1991,
+   "doi": "https://doi.org/10.1136/oem.48.9.592",
+   "venue": "Occupational and Environmental Medicine",
+   "cites": 78,
+   "authors": [
+    "R. P. Gamble",
+    "A B Stevens",
+    "H McBrien"
+   ]
+  },
+  {
+   "title": "The American Ambulance in Paris, 1914\u20131917 Part III: The American Ambulance Field Service",
+   "year": 2016,
+   "doi": "https://doi.org/10.7205/milmed-d-15-00407",
+   "venue": "Military Medicine",
+   "cites": 1,
+   "authors": [
+    "Eugene Ginchereau"
+   ]
+  }
+ ]
+}
