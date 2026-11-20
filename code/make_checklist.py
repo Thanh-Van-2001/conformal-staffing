@@ -7,6 +7,9 @@ from docx.shared import Pt
 
 M = json.load(open("out/macros.json"))
 info = json.load(open("out/RUN_INFO.json"))
+SW = json.load(open("facts/software_versions.json"))
+X3 = json.load(open("out/RUN_INFO_amend3.json"))
+X4 = json.load(open("out/RUN_INFO_amend4.json"))
 ROWS = [
     ("Objectives", None, None),
     ("1.1", "Purpose of the model", "Introduction (last paragraph); Methods, Study design and data: test whether calibrating an hourly "
@@ -14,15 +17,17 @@ ROWS = [
     ("1.2", "Model outputs", "Methods, Service model and outcomes: per day, the fraction of calls that waited for a free unit and "
      "the fraction waiting > 10 min; coverage = share of days meeting the target; cost = unit-hours per day."),
     ("1.3", "Experimentation aims", "Methods, Analysis plan and statistical analysis: hypotheses H1-H4 and secondary configurations "
-     "(training days 40/80/160; alpha 0.05/0.10/0.20; 10-minute target)."),
+     "(training days 40/80/160; alpha 0.05/0.10/0.20; 10-minute target); exploratory baselines of amendments 3 and 4 "
+     "(WCP, TAB, TAB-ACI, ACA0, QT, SCD-I, CRC-share), Methods, Exploratory baselines."),
     ("Logic", None, None),
     ("2.1", "Base model overview diagram", "Methods, Service model and outcomes. The model is one pool of units serving one "
      "first-come-first-served queue; it is described in text rather than a diagram."),
     ("2.2", "Base model logic", "Methods, Service model and outcomes; code/sim.py."),
     ("2.3", "Scenario logic", "Methods, Staffing rules: scenarios differ only in the hourly staffing plan c (SCD, EMP, SIPP, MOL, "
-     "ACA, ACI, hindsight); the queue logic is unchanged."),
+     "ACA, ACI, hindsight; exploratory WCP, TAB, TAB-ACI, ACA0, QT, SCD-I, CRC-share); the queue logic is unchanged."),
     ("2.4", "Algorithms", "Methods, Staffing rules: square-root plan family, conformal rank, Erlang-C (delay probability and "
-     "10-minute tail), ACA load kernel, ACI level update; code/exp.py, code/analyze.py."),
+     "10-minute tail), ACA load kernel, ACI level update, recency weights, trend projection, PID-type updates, "
+     "conformal risk control; code/exp.py, code/analyze.py, code/*_amend3.py, code/*_amend4.py."),
     ("2.5.1", "Components: entities", "Calls (one per incident), each with its recorded arrival time and busy time."),
     ("2.5.2", "Components: activities", "Service: a unit is busy with a call for its recorded busy time."),
     ("2.5.3", "Components: resources", "Ambulance units; c_p units on duty in hour p; a unit busy at the end of an hour finishes "
@@ -46,14 +51,15 @@ ROWS = [
     ("4.3", "Estimation approach", "The simulation is deterministic given the recorded trace (no random sampling). Uncertainty "
      "across planning dates: moving-block bootstrap (blocks of 4, 10,000 replicates)."),
     ("Implementation", None, None),
-    ("5.1", "Software or programming language", "Python 3.12.16 (NumPy 2.3.4, Numba 0.62.1, pandas 2.3.3, SciPy 1.16.3) on "
-     "Ubuntu 22.04.5 LTS."),
+    ("5.1", "Software or programming language", f"Python {SW['python']} (NumPy {SW['numpy']}, Numba {SW['numba']}, "
+     f"pandas {SW['pandas']}, SciPy {SW['scipy']}) on {SW['os_release']} (facts/software_versions.json)."),
     ("5.2", "Random sampling", "None in the simulator. Bootstrap and permutation tests use NumPy's default generator (PCG64) "
      "with fixed seeds."),
     ("5.3", "Model execution", "Next-event simulation of a multi-server queue: a binary heap of unit release times "
      "(code/sim.py, compiled with Numba)."),
     ("5.4", "System specification", f"{info['tasks']} tasks in {info['secs']:.0f} s on 6 cores of an AMD Ryzen 9 9950X "
-     "(32 threads) shared server."),
+     f"(32 threads) shared server; amendments 3 and 4: {X3['tasks']} and {X4['tasks']} tasks on 2 cores (minutes "
+     "each; restarted from finished files after memory-guard stops)."),
     ("Code access", None, None),
     ("6.1", "Computer model sharing statement", "https://github.com/Thanh-Van-2001/conformal-staffing (MIT licence): "
      "simulator, analysis code, analysis plan with commit history, results."),

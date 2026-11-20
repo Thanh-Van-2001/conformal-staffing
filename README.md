@@ -33,8 +33,16 @@ study, which is summarised in `facts/prep_log.json`.
 ```
 python -I code/exp.py <data_dir> out 6        # about 4 minutes on 6 cores
 python -I code/analyze.py out
+python -I code/exp_amend3.py <data_dir> out 2   # amendment 3 (exploratory): TAB, ACA0
+python -I code/analyze_amend3.py out             # WCP, TAB, TAB-ACI, ACA0
+python -I code/exp_amend4.py <data_dir> out 2   # amendment 4 (exploratory): shares for CRC-share
+python -I code/analyze_amend4.py out             # QT, SCD-I, CRC-share
 python -I code/make_macros.py && python -I code/make_figures.py
+python -I code/make_docx.py && python code/make_checklist.py   # Word manuscript, cover letter, STRESS-DES
 ```
+
+`refs/novelty_sweep/` holds the literature searches (OpenAlex, arXiv) behind the
+research-gap statement; `facts/software_versions.json` the library versions.
 
 Python 3.12 (results run with NumPy 2.3.4, Numba 0.62.1, pandas 2.3.3, SciPy 1.16.3 on Ubuntu 22.04) plus matplotlib, python-docx and pandoc for the paper files.
 

@@ -57,6 +57,7 @@ for m in re.finditer(r"\\begin\{table\}.*?\\end\{table\}", body, flags=re.S):
 body = re.sub(r"\\begin\{table\}.*?\\end\{table\}", "", body, flags=re.S)
 body = body.replace("Figure~\\ref{fig:cc}", "Figure 1").replace("Figure~\\ref{fig:drift}", "Figure 2")
 body = body.replace("Table~\\ref{tab:data}", "Table 1").replace("Tables~\\ref{tab:res} and~\\ref{tab:cost}", "Tables 2 and 3")
+body = body.replace("Table~\\ref{tab:amend}", "Table 4")
 body = body.replace("equation~\\eqref{eq:guarantee}", "equation (1)").replace("\\label{eq:guarantee}", "")
 assert "\\ref{" not in body, re.findall(r".{40}\\ref\{.{20}", body)
 
@@ -65,9 +66,18 @@ body = body.replace("\\begin{abstract}", "\\section*{Abstract}").replace("\\end{
 
 title = re.search(r"\\title\{(.*?)\}\n", tex).group(1)
 words = len(re.sub(r"\\[a-zA-Z]+|[{}$]", " ", body[body.index("\\section{Introduction}"):body.index("\\section*{Acknowledgements}")]).split())
+abs_tex = body[body.index("\\section*{Abstract}") + len("\\section*{Abstract}"):body.index("\\medskip")]
+abs_words = len(re.sub(r"\\[a-zA-Z]+|[{}$]", " ", abs_tex).split())
+# plain-text abstract for the portal's abstract box (inline math written out)
+abs_plain = re.sub(r"\$\\rho=([^$]*)\$", lambda m: "ρ = " + m.group(1).replace("-", "−"), abs_tex).replace("\\noindent", "")
+abs_plain = subprocess.run(["pandoc", "-f", "latex", "-t", "plain", "--wrap=none"], input=abs_plain, capture_output=True,
+                           text=True, encoding="utf-8", check=True).stdout
+abs_plain = re.sub(r"\n{3,}", "\n\n", abs_plain).strip() + "\n"
+with open("paper/submission/abstract_plain.txt", "w", encoding="utf-8") as f:
+    f.write(abs_plain)
 front = (f"\\section*{{{title}}}\n\nThanh Van Nguyen\n\nTsinghua Shenzhen International Graduate School, Tsinghua University, "
          f"Shenzhen, China\n\nCorresponding author: Thanh Van Nguyen, felicenguyen2001@gmail.com\n\n"
-         f"Word count (main text, approximate): {words}\n\n\\newpage\n")
+         f"Word count: main text {words} (approximate); abstract {abs_words}\n\n\\newpage\n")
 os.makedirs("paper/docx", exist_ok=True)
 with open("paper/docx/body.tex", "w", encoding="utf-8") as f:
     f.write(front + body)
@@ -92,4 +102,19 @@ with open("paper/docx/manuscript.md", "w", encoding="utf-8") as f:
     f.write(md)
 subprocess.run(["pandoc", "paper/docx/manuscript.md", "-o", "paper/docx/manuscript.docx", "--citeproc",
                 "--bibliography", "paper/refs.bib", "--csl", "refs/csl/nlm-pandoc212.csl"], check=True)
-print("docx written;", words, "words in main text;", len(tab_caps), "tables;", len(fig_caps), "figures")
+print("docx written;", words, "words in main text;", abs_words, "in the abstract;", len(tab_caps), "tables;",
+      len(fig_caps), "figures")
+
+# cover letter: numbers from the macros, date of the build
+import datetime  # noqa: E402
+
+cl = open("paper/submission/cover_letter_template.md", encoding="utf-8").read()
+today = datetime.date.today()
+cl = cl.replace("\\res{coverDate}", f"{today.day} {today:%B %Y}")
+cl = re.sub(r"\\res\{([^}]+)\}", lambda m: M[m.group(1)], cl)
+assert "\\res{" not in cl
+with open("paper/submission/cover_letter.md", "w", encoding="utf-8") as f:
+    f.write(cl)
+subprocess.run(["pandoc", "paper/submission/cover_letter.md", "-f", "markdown", "-o",
+                "paper/submission/package/cover_letter.docx"], check=True)
+print("cover letter written;", len(cl.split()), "words")

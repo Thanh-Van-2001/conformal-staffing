@@ -141,7 +141,7 @@ for key, tag in [("n40_a0.10_A", "nForty"), ("n160_a0.10_A", "nOneSixty"), ("n80
     T = R["summary"][key]
     for r, rt in [("SCD", "SCD"), ("ACI_g0.05", "ACI"), ("EMP", "EMP"), ("MOL", "MOL"), ("ACA", "ACA")]:
         c = [T[s][r]["coverage"] for s in SYS]
-        rel = [T[s][r]["rel_oracle_median"] for s in SYS]
+        rel = [T[s][r]["rel_oracle_mean"] for s in SYS]  # ratio of mean unit-hours, as everywhere (amendment 2)
         M[f"{tag}cov{rt}Min"], M[f"{tag}cov{rt}Max"] = f(min(c), 3), f(max(c), 3)
         M[f"{tag}rel{rt}Min"], M[f"{tag}rel{rt}Max"] = f(min(rel), 2), f(max(rel), 2)
 c = [S[s][f"ACI_g{gm}"]["coverage"] for s in SYS for gm in ("0.02", "0.10")]
@@ -178,6 +178,86 @@ sh = [DC[s]["share_svc_lt15min"] for s in SYS]
 M["shortSvcMin"], M["shortSvcMax"] = pct(min(sh), 0), pct(max(sh), 0)
 M["shortSvcNYCMax"] = pct(max(DC[s]["share_svc_lt15min"] for s in SYS if s != "SF"), 0)
 M["shortSvcSF"] = pct(DC["SF"]["share_svc_lt15min"], 0)
+
+# SCD at the 95% level against SCD at 90% (pre-specified secondary configuration), extra unit-hours
+S5 = R["summary"]["n80_a0.05_A"]
+x = [S5[s]["SCD"]["uh"] / S[s]["SCD"]["uh"] - 1 for s in SYS]
+M["aFiveOverSCDMin"], M["aFiveOverSCDMax"] = pct(min(x), 1), pct(max(x), 1)
+
+# amendment 3: exploratory rules (out/amend3_results.json, out/panel_amend3.csv.gz)
+X = json.load(open("out/amend3_results.json"))
+XP = pd.read_csv("out/panel_amend3.csv.gz")
+XS = X["summary"]["n80_a0.10_A"]
+XT = {"SCD": "SCD", "ACI": "ACI", "WCP_H20": "WCP", "WCP_H10": "WCPten", "WCP_H40": "WCPforty", "TAB": "TAB",
+      "TAB_ACI": "TABACI", "ACA0": "ACAZ"}
+# amendment 4 (out/amend4_results.json): conformal PID controllers and conformal risk control
+X4 = json.load(open("out/amend4_results.json"))
+assert X4["crc_binary_equals_scd_mismatches"] == 0
+XS4 = X4["summary"]["n80_a0.10_A"]
+XT4 = {"QT_c0.10": "QT", "SCDI_c0.10": "SCDI", "CRCS": "CRCS", "QT_c0.05": "QTlo", "QT_c0.20": "QThi",
+       "SCDI_c0.05": "SCDIlo", "SCDI_c0.20": "SCDIhi"}
+for s in SYS:  # amendment 4 recomputes SCD too
+    assert f(XS4["SCD"]["per_system"][s]["coverage"], 3) == M[f"covSCD{TAG[s]}"], s
+for r, t in list(XT.items()) + list(XT4.items()):
+    v = XS[r] if r in XT else XS4[r]
+    per = v["per_system"]
+    M[f"x{t}covMin"], M[f"x{t}covMax"] = rng([per[s]["coverage"] for s in SYS], lambda q: f(q, 3))
+    M[f"x{t}overSCDMin"], M[f"x{t}overSCDMax"] = rng([per[s]["rel_scd"] - 1 for s in SYS], lambda q: pct(q, 1))
+    M[f"x{t}relORMin"], M[f"x{t}relORMax"] = rng([per[s]["rel_oracle"] for s in SYS], lambda q: f(q, 2))
+    M[f"x{t}below"], M[f"x{t}hOne"], M[f"x{t}sig"] = str(v["below_nominal"]), str(v["h1_count"]), str(v["sig_vs_scd"])
+    M[f"x{t}hOneSeedMin"], M[f"x{t}hOneSeedMax"] = str(v["h1_seed_min"]), str(v["h1_seed_max"])
+    M[f"x{t}rho"] = f(v["rho"], 2)
+    M[f"x{t}flags"] = str(sum(per[s]["flags"] for s in SYS))
+    for s in SYS:
+        M[f"x{t}cov{TAG[s]}"] = f(per[s]["coverage"], 3)
+        M[f"x{t}over{TAG[s]}"] = pct(per[s]["rel_scd"] - 1, 1)
+# the amendment-3 analysis recomputes SCD and ACI: they must match the pre-registered summary
+for s in SYS:
+    assert M[f"xSCDcov{TAG[s]}"] == M[f"covSCD{TAG[s]}"] and M[f"xACIcov{TAG[s]}"] == M[f"covACI{TAG[s]}"], s
+assert M["xSCDrho"] == M["hFourRho"] and M["xSCDhOne"] == M["hOneOk"]
+for key, tag in [("n40_a0.10_A", "nForty"), ("n160_a0.10_A", "nOneSixty"), ("n80_a0.05_A", "aFive"),
+                 ("n80_a0.20_A", "aTwenty"), ("n80_a0.10_B", "tTen")]:
+    for r, t in (("WCP_H20", "WCP"), ("TAB", "TAB"), ("ACA0", "ACAZ")):
+        v = X["summary"][key][r]
+        M[f"x{t}{tag}below"] = str(v["below_nominal"])
+        M[f"x{t}{tag}flags"] = str(sum(v["per_system"][s]["flags"] for s in SYS))
+        c = [v["per_system"][s]["coverage"] for s in SYS]
+        M[f"x{t}{tag}covMin"], M[f"x{t}{tag}covMax"] = f(min(c), 3), f(max(c), 3)
+M["xTabRMin"], M["xTabRMax"] = f(X["tab_r_test"]["80"]["min"], 2), f(X["tab_r_test"]["80"]["max"], 2)
+for r, t in (("CRCS", "CRCS"), ("SCD", "SCD"), ("QT_c0.10", "QT"), ("SCDI_c0.10", "SCDI")):
+    sh = X4["share_delayed"][r].values()
+    M[f"x{t}shareMin"], M[f"x{t}shareMax"] = pct(min(sh), 1), pct(max(sh), 1)
+for key, tag in [("n40_a0.10_A", "nForty"), ("n160_a0.10_A", "nOneSixty"), ("n80_a0.05_A", "aFive"),
+                 ("n80_a0.20_A", "aTwenty"), ("n80_a0.10_B", "tTen")]:
+    for r, t in (("QT_c0.10", "QT"), ("SCDI_c0.10", "SCDI")):
+        M[f"x{t}{tag}below"] = str(X4["summary"][key][r]["below_nominal"])
+M["xFourTasks"] = str(json.load(open("out/RUN_INFO_amend4.json"))["tasks"])
+cr = [XS4["CRCS"]["per_system"][s]["coverage"] for s in SYS]
+M["xCRCSmissMin"], M["xCRCSmissMax"] = pct(1 - max(cr), 0), pct(1 - min(cr), 0)
+# ACA0 built at the 80% level against SCD at 90%
+q = XP[(XP.n == 80) & (XP.target == "A")]
+cov20, over20 = [], []
+for s in SYS:
+    a0 = q[(q.system == s) & (q.rule == "ACA0") & (q.alpha == 0.2)]
+    sc = q[(q.system == s) & (q.rule == "SCD") & (q.alpha == 0.1)]
+    cov20.append(a0.coverage.mean())
+    over20.append(a0.uh.mean() / sc.uh.mean() - 1)
+M["xACAZtwcovMin"], M["xACAZtwcovMax"] = f(min(cov20), 3), f(max(cov20), 3)
+M["xACAZtwoverSCDMin"], M["xACAZtwoverSCDMax"] = pct(min(over20), 1), pct(max(over20), 1)
+# share of calibration weight (WCP, H = 20) or of days (SCD) that must lie at or below theta-hat; n = 80, alpha = 0.10
+h, Hl, al = 40, 20, 0.10
+w = 2.0 ** (-(h - 1 - np.arange(h)) / Hl)
+M["xWCPshare"] = pct((1 - al) * (w.sum() + 1) / w.sum(), 1)
+M["xSCDshare"] = pct(int(np.ceil((h + 1) * (1 - al))) / h, 1)
+SW = json.load(open("facts/software_versions.json"))
+M["swPython"], M["swNumpy"], M["swNumba"] = SW["python"], SW["numpy"], SW["numba"]
+M["swPandas"], M["swScipy"], M["swOS"] = SW["pandas"], SW["scipy"], SW["os_release"]
+M["xTABlower"] = str(sum(XS["TAB"]["per_system"][s]["coverage"] < XS["SCD"]["per_system"][s]["coverage"] for s in SYS))
+# percent forms for the cover letter
+for k in ("covSCDMin", "covSCDMax", "covSIPPMin", "covMOLMax", "covACIMin", "covACIMax", "xWCPcovMin", "xWCPcovMax"):
+    M[k + "Pct"] = pct(float(M[k]), 0)
+M["xTasks"] = str(json.load(open("out/RUN_INFO_amend3.json"))["tasks"])
+M["xSecs"] = f(json.load(open("out/RUN_INFO_amend3.json"))["secs"], 0)
 
 with open("paper/macros.tex", "w", encoding="utf-8") as fh:
     fh.write("% generated by code/make_macros.py -- do not edit\n\\makeatletter\n")

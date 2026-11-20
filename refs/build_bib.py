@@ -23,16 +23,26 @@ DOIS = {
     "gans2015parametric": "10.1287/msom.2015.0546",
     "atlason2004call": "10.1023/B:ANOR.0000019095.91642.bb",
     "chan2008optimization": "10.1287/opre.1080.0559",
+    "defraeye2016staffing": "10.1016/j.omega.2015.04.002",
     # EMS
     "matteson2011forecasting": "10.1214/10-AOAS442",
     "channouf2007application": "10.1007/s10729-006-9006-3",
     "belanger2019recent": "10.1016/j.ejor.2018.02.055",
     "aboueljinane2013review": "10.1016/j.cie.2013.09.017",
+    "zhou2015spatio": "10.1080/01621459.2014.941466",
+    "monks2023forecasting": "10.1186/s12911-023-02218-z",
+    "rostamitabar2024hierarchical": "10.1177/10946705241232169",
+    "mappouras2026process": "10.1109/cbms69103.2026.00148",
     # conformal prediction
     "vovk2022algorithmic": "10.1007/978-3-031-06649-8",
     "lei2018distribution": "10.1080/01621459.2017.1307116",
     "angelopoulos2023gentle": "10.1561/2200000101",
     "barber2023beyond": "10.1214/23-AOS2276",
+    "angelopoulos2025learn": "10.1214/24-aoas1998",
+    "lekeufack2024conformal": "10.1109/icra57147.2024.10610041",
+    "makhado2026conformal": "10.1016/j.orp.2026.100409",
+    "angelopoulos2023pid": "10.52202/075280-1000",
+    "ke2026rightsizing": "10.1109/access.2026.3704918",
     # statistics
     "kunsch1989jackknife": "10.1214/aos/1176347265",
     "wilcoxon1945individual": "10.2307/3001968",
@@ -45,8 +55,34 @@ ARXIV = {
     "angelopoulos2024conformal": "2208.02814",
     "tibshirani2019conformal": "1904.06019",
     "koole2024call": "2402.19209",
+    "zhao2024conformal": "2402.07407",
 }
+# DOIs that must resolve on Crossref but whose BibTeX is written below
+# (Crossref types this SSRN preprint as an article without a journal)
+CHECK_ONLY = {"kara2026beyond": "10.2139/ssrn.7111693", "alallawi2026decision": "10.2139/ssrn.7682391"}
 EXTRA = r"""
+@article{alallawi2026decision,
+  author = {AlAllawi, Rabia},
+  title = {Decision-level conformal risk control for prescriptive maintenance under exchangeability violation: theory and a systematic study on turbofan run-to-failure data},
+  journal = {SSRN preprint},
+  doi = {10.2139/ssrn.7682391},
+  year = {2026}
+}
+@article{kara2026beyond,
+  author = {Kara, Muhammet Rojhat and Budak, Fatih},
+  title = {Beyond point forecasts: a dynamically adaptive conformal prediction and explainable {AI} framework for 112 emergency call volume forecasting},
+  journal = {SSRN preprint},
+  doi = {10.2139/ssrn.7111693},
+  year = {2026}
+}
+@misc{zhao2024conformal,
+  author = {Zhao, Yiqi and Yu, Xinyi and Sesia, Matteo and Deshmukh, Jyotirmoy V. and Lindemann, Lars},
+  title = {Conformal predictive programming for chance constrained optimization},
+  year = {2024},
+  eprint = {2402.07407},
+  archivePrefix = {arXiv},
+  note = {arXiv preprint arXiv:2402.07407}
+}
 @inproceedings{gibbs2021adaptive,
   author = {Gibbs, Isaac and Cand{\`e}s, Emmanuel J.},
   title = {Adaptive conformal inference under distribution shift},
@@ -117,7 +153,8 @@ def get(url, tries=5):
 TITLE_FIX = {"Improving the Sipp Approach": "Improving the {SIPP} Approach",
              "title={FORECAST ERRORS IN SERVICE SYSTEMS}": "title={Forecast errors in service systems}",
              "Introducing the STRESS guidelines": "Introducing the {STRESS} guidelines",
-             "in Calgary": "in {Calgary}", "Alberta": "{Alberta}"}
+             "in Calgary": "in {Calgary}", "Alberta": "{Alberta}",
+             "in England and Wales": "in {England} and {Wales}"}
 out = []
 for key, doi in DOIS.items():
     bib = get(f"https://api.crossref.org/works/{doi}/transform/application/x-bibtex")
@@ -126,9 +163,15 @@ for key, doi in DOIS.items():
     bib = re.sub(r",\s*month=\w+", "", bib)  # Crossref month macros are not defined in every style
     for a, b in TITLE_FIX.items():
         bib = bib.replace(a, b)
+    bib = bib.replace("&amp;", "\\&")  # Crossref returns HTML-escaped ampersands in journal names
     t = re.search(r"title=\{(.*?)\},", bib)
     print(f"{key:28s} {t.group(1)[:90] if t else '??'}")
     out.append(bib)
+    time.sleep(0.5)
+for key, doi in CHECK_ONLY.items():
+    import json
+    msg = json.loads(get(f"https://api.crossref.org/works/{doi}"))["message"]
+    print(f"{key:28s} {msg['title'][0][:90]} (Crossref check only)")
     time.sleep(0.5)
 ids = ",".join(ARXIV.values())
 feed = ET.fromstring(get(f"http://export.arxiv.org/api/query?id_list={ids}&max_results=10"))
