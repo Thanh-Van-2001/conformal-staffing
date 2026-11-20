@@ -13,3 +13,4 @@ paper/submission/*.log
 paper/submission/*.out
 paper/docx/body.tex
 paper/docx/manuscript.md
+paper/docx/supplement.md

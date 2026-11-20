@@ -252,6 +252,11 @@ M["xSCDshare"] = pct(int(np.ceil((h + 1) * (1 - al))) / h, 1)
 SW = json.load(open("facts/software_versions.json"))
 M["swPython"], M["swNumpy"], M["swNumba"] = SW["python"], SW["numpy"], SW["numba"]
 M["swPandas"], M["swScipy"], M["swOS"] = SW["pandas"], SW["scipy"], SW["os_release"]
+# MOL (Erlang-C agency rule) in the main exploratory table: coverage, areas below nominal, unit-hours vs SCD
+M["xMOLcovMin"], M["xMOLcovMax"] = M["covMOLMin"], M["covMOLMax"]
+M["xMOLbelow"] = str(sum(S[s]["MOL"]["coverage"] < 0.90 for s in SYS))
+mo = [S[s]["MOL"]["uh"] / S[s]["SCD"]["uh"] - 1 for s in SYS]
+M["xMOLoverSCDMin"], M["xMOLoverSCDMax"] = pct(min(mo), 1), pct(max(mo), 1)
 M["xTABlower"] = str(sum(XS["TAB"]["per_system"][s]["coverage"] < XS["SCD"]["per_system"][s]["coverage"] for s in SYS))
 # percent forms for the cover letter
 for k in ("covSCDMin", "covSCDMax", "covSIPPMin", "covMOLMax", "covACIMin", "covACIMax", "xWCPcovMin", "xWCPcovMax"):

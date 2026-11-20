@@ -229,13 +229,13 @@ Window coverage varied more than a model of independent, exchangeable days predi
 
 \subsection{Exploratory: current drift-adaptive and risk-control methods}
 
-Table~\ref{tab:amend} compares the exploratory rules with SCD. Recency-weighted calibration (WCP, $H=20$) met the target on \res{xWCPcovMin} to \res{xWCPcovMax} of days, at or above nominal in every area, for $\res{xWCPoverSCDMin}$--$\res{xWCPoverSCDMax}$\% more unit-hours than SCD; its coverage gain was significant in \res{xWCPsig} of 7 areas (paired one-sided Wilcoxon, Holm-adjusted). Part of the gain is the more conservative rank: SCD run at a 95\% level reached \res{aFivecovSCDMin}--\res{aFivecovSCDMax} for \res{aFiveOverSCDMin}--\res{aFiveOverSCDMax}\% more unit-hours than at 90\%. Quantile tracking (QT) reached \res{xQTcovMin} to \res{xQTcovMax}, below nominal in \res{xQTbelow} area, for $\res{xQToverSCDMin}$ to $\res{xQToverSCDMax}$\% unit-hours relative to SCD, and weakened the link between coverage and demand growth ($\rho=\res{xQTrho}$, against $\res{hFourRho}$); with step factors 0.05 and 0.2 it reached \res{xQTlocovMin}--\res{xQTlocovMax} and \res{xQThicovMin}--\res{xQThicovMax}. SCD with an integrator (SCD-I) moved coverage little (\res{xSCDIcovMin}--\res{xSCDIcovMax}) at SCD's cost. The trend-adjusted base load lowered coverage in \res{xTABlower} of 7 areas (\res{xTABcovMin}--\res{xTABcovMax}); its projected load ranged from \res{xTabRMin} to \res{xTabRMax} times the base load, and a line fitted to 80 noisy days and extrapolated about 50 days ahead probably adds as much error as it removes.
+Table~\ref{tab:amend} compares the main exploratory rules with SCD and MOL; Supplementary Table~\ref{tab:amendfull} lists all eleven. Recency-weighted calibration (WCP, $H=20$) met the target on \res{xWCPcovMin} to \res{xWCPcovMax} of days, at or above nominal in every area, for $\res{xWCPoverSCDMin}$--$\res{xWCPoverSCDMax}$\% more unit-hours than SCD; its coverage gain was significant in \res{xWCPsig} of 7 areas (paired one-sided Wilcoxon, Holm-adjusted). Part of the gain is the more conservative rank: SCD run at a 95\% level reached \res{aFivecovSCDMin}--\res{aFivecovSCDMax} for \res{aFiveOverSCDMin}--\res{aFiveOverSCDMax}\% more unit-hours than at 90\%. Quantile tracking (QT) reached \res{xQTcovMin} to \res{xQTcovMax}, below nominal in \res{xQTbelow} area, for $\res{xQToverSCDMin}$ to $\res{xQToverSCDMax}$\% unit-hours relative to SCD, and weakened the link between coverage and demand growth ($\rho=\res{xQTrho}$, against $\res{hFourRho}$); with step factors 0.05 and 0.2 it reached \res{xQTlocovMin}--\res{xQTlocovMax} and \res{xQThicovMin}--\res{xQThicovMax}. SCD with an integrator (SCD-I) moved coverage little (\res{xSCDIcovMin}--\res{xSCDIcovMax}) at SCD's cost. The trend-adjusted base load lowered coverage in \res{xTABlower} of 7 areas (\res{xTABcovMin}--\res{xTABcovMax}); its projected load ranged from \res{xTabRMin} to \res{xTabRMax} times the base load, and a line fitted to 80 noisy days and extrapolated about 50 days ahead probably adds as much error as it removes.
 
 Conformal risk control of the expected share of delayed calls (CRC-share) kept that share at \res{xCRCSshareMin}--\res{xCRCSshareMax}\% on test days, within its 5\% promise (SCD: \res{xSCDshareMin}--\res{xSCDshareMax}\%), and used $\res{xCRCSoverSCDMin}$ to $\res{xCRCSoverSCDMax}$\% unit-hours relative to SCD, but the day-level target failed on \res{xCRCSmissMin}--\res{xCRCSmissMax}\% of days. Without the Erlang-C margin, the band on call counts (ACA0) met the target on \res{xACAZcovMin} to \res{xACAZcovMax} of days, well above nominal, for $\res{xACAZoverSCDMin}$--$\res{xACAZoverSCDMax}$\% more unit-hours than SCD (ACA: \res{acaOverSCDMin}--\res{acaOverSCDMax}\%); built at the 80\% level it reached \res{xACAZtwcovMin}--\res{xACAZtwcovMax} for $\res{xACAZtwoverSCDMin}$--$\res{xACAZtwoverSCDMax}$\% more unit-hours than SCD at 90\%.
 
 \begin{table}[t]
 \centering
-\caption{Exploratory rules (second to fourth amendments) against SCD, primary configuration (80 training days, 90\% target, at most 5\% of calls delayed). ACI: adaptive level; WCP: recency-weighted calibration; QT: quantile tracking; SCD-I: SCD plus integrator; TAB: trend-adjusted base load; CRC-share: conformal risk control of the expected share of delayed calls; ACA0: band on call counts without the Erlang-C margin. Coverage: range over the seven areas. Below 0.90: number of areas. H1 criterion: number of areas whose lower 95\% bound of coverage is at least 0.85, with the pre-specified bootstrap seed (range over 50 seeds); descriptive, not a test. Extra unit-hours: range over areas of the ratio of mean unit-hours to SCD's, minus one. $\rho$: Spearman correlation between window coverage and the growth of demand from the calibration days to the test window, pooled over areas. $H$: half-life in weekdays. QT and SCD-I use the step factor 0.1.}
+\caption{Main comparison for planners, primary configuration (80 training days, 90\% target, at most 5\% of calls delayed). SCD and MOL are pre-specified; WCP (half-life 20 days), QT (step factor 0.1) and ACA0 (band staffed without the Erlang-C margin) are exploratory. Coverage: range over the seven areas. Below 0.90: number of areas. H1 criterion: number of areas whose lower 95\% bound of coverage is at least 0.85, with the pre-specified bootstrap seed (range over 50 seeds); descriptive, not a test. Extra unit-hours: range over areas of the ratio of mean unit-hours to SCD's, minus one. $\rho$: Spearman correlation between window coverage and demand growth from the calibration days to the test window, pooled over areas. --: not computed (MOL targets an hourly delay probability). All eleven rules are in Supplementary Table~\ref{tab:amendfull}.}
 \label{tab:amend}
 \small
 \setlength{\tabcolsep}{4pt}
@@ -244,16 +244,10 @@ Conformal risk control of the expected share of delayed calls (CRC-share) kept t
 Rule & Coverage & Below 0.90 & H1 criterion & Extra unit-hours (\%) & $\rho$ \\
 \midrule
 SCD (pre-specified) & \res{xSCDcovMin}--\res{xSCDcovMax} & \res{xSCDbelow} & \res{xSCDhOne} (\res{xSCDhOneSeedMin}--\res{xSCDhOneSeedMax}) & 0 & $\res{xSCDrho}$ \\
-ACI & \res{xACIcovMin}--\res{xACIcovMax} & \res{xACIbelow} & \res{xACIhOne} (\res{xACIhOneSeedMin}--\res{xACIhOneSeedMax}) & $\res{xACIoverSCDMin}$ to $\res{xACIoverSCDMax}$ & $\res{xACIrho}$ \\
-WCP, $H=20$ & \res{xWCPcovMin}--\res{xWCPcovMax} & \res{xWCPbelow} & \res{xWCPhOne} (\res{xWCPhOneSeedMin}--\res{xWCPhOneSeedMax}) & $\res{xWCPoverSCDMin}$ to $\res{xWCPoverSCDMax}$ & $\res{xWCPrho}$ \\
-WCP, $H=10$ & \res{xWCPtencovMin}--\res{xWCPtencovMax} & \res{xWCPtenbelow} & \res{xWCPtenhOne} (\res{xWCPtenhOneSeedMin}--\res{xWCPtenhOneSeedMax}) & $\res{xWCPtenoverSCDMin}$ to $\res{xWCPtenoverSCDMax}$ & $\res{xWCPtenrho}$ \\
-WCP, $H=40$ & \res{xWCPfortycovMin}--\res{xWCPfortycovMax} & \res{xWCPfortybelow} & \res{xWCPfortyhOne} (\res{xWCPfortyhOneSeedMin}--\res{xWCPfortyhOneSeedMax}) & $\res{xWCPfortyoverSCDMin}$ to $\res{xWCPfortyoverSCDMax}$ & $\res{xWCPfortyrho}$ \\
-QT & \res{xQTcovMin}--\res{xQTcovMax} & \res{xQTbelow} & \res{xQThOne} (\res{xQThOneSeedMin}--\res{xQThOneSeedMax}) & $\res{xQToverSCDMin}$ to $\res{xQToverSCDMax}$ & $\res{xQTrho}$ \\
-SCD-I & \res{xSCDIcovMin}--\res{xSCDIcovMax} & \res{xSCDIbelow} & \res{xSCDIhOne} (\res{xSCDIhOneSeedMin}--\res{xSCDIhOneSeedMax}) & $\res{xSCDIoverSCDMin}$ to $\res{xSCDIoverSCDMax}$ & $\res{xSCDIrho}$ \\
-TAB & \res{xTABcovMin}--\res{xTABcovMax} & \res{xTABbelow} & \res{xTABhOne} (\res{xTABhOneSeedMin}--\res{xTABhOneSeedMax}) & $\res{xTABoverSCDMin}$ to $\res{xTABoverSCDMax}$ & $\res{xTABrho}$ \\
-TAB-ACI & \res{xTABACIcovMin}--\res{xTABACIcovMax} & \res{xTABACIbelow} & \res{xTABACIhOne} (\res{xTABACIhOneSeedMin}--\res{xTABACIhOneSeedMax}) & $\res{xTABACIoverSCDMin}$ to $\res{xTABACIoverSCDMax}$ & $\res{xTABACIrho}$ \\
-CRC-share & \res{xCRCScovMin}--\res{xCRCScovMax} & \res{xCRCSbelow} & \res{xCRCShOne} (\res{xCRCShOneSeedMin}--\res{xCRCShOneSeedMax}) & $\res{xCRCSoverSCDMin}$ to $\res{xCRCSoverSCDMax}$ & $\res{xCRCSrho}$ \\
-ACA0 & \res{xACAZcovMin}--\res{xACAZcovMax} & \res{xACAZbelow} & \res{xACAZhOne} (\res{xACAZhOneSeedMin}--\res{xACAZhOneSeedMax}) & $\res{xACAZoverSCDMin}$ to $\res{xACAZoverSCDMax}$ & $\res{xACAZrho}$ \\
+WCP, recency weights & \res{xWCPcovMin}--\res{xWCPcovMax} & \res{xWCPbelow} & \res{xWCPhOne} (\res{xWCPhOneSeedMin}--\res{xWCPhOneSeedMax}) & $\res{xWCPoverSCDMin}$ to $\res{xWCPoverSCDMax}$ & $\res{xWCPrho}$ \\
+QT, quantile tracking & \res{xQTcovMin}--\res{xQTcovMax} & \res{xQTbelow} & \res{xQThOne} (\res{xQThOneSeedMin}--\res{xQThOneSeedMax}) & $\res{xQToverSCDMin}$ to $\res{xQToverSCDMax}$ & $\res{xQTrho}$ \\
+ACA0, band on calls & \res{xACAZcovMin}--\res{xACAZcovMax} & \res{xACAZbelow} & \res{xACAZhOne} (\res{xACAZhOneSeedMin}--\res{xACAZhOneSeedMax}) & $\res{xACAZoverSCDMin}$ to $\res{xACAZoverSCDMax}$ & $\res{xACAZrho}$ \\
+MOL, Erlang-C (pre-specified) & \res{xMOLcovMin}--\res{xMOLcovMax} & \res{xMOLbelow} & -- & $\res{xMOLoverSCDMin}$ to $\res{xMOLoverSCDMax}$ & -- \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -306,5 +300,35 @@ The dispatch data are public \citep{nycems2026,sffire2026}. The analysis plan wi
 
 \bibliographystyle{unsrtnat}
 \bibliography{refs}
+
+\clearpage
+\appendix
+\section*{Supplementary material}
+\setcounter{table}{0}
+\renewcommand{\thetable}{S\arabic{table}}
+\begin{table}[h]
+\centering
+\caption{All exploratory rules (second to fourth amendments) against SCD, primary configuration (80 training days, 90\% target, at most 5\% of calls delayed). ACI: adaptive level; WCP: recency-weighted calibration; QT: quantile tracking; SCD-I: SCD plus integrator; TAB: trend-adjusted base load; CRC-share: conformal risk control of the expected share of delayed calls; ACA0: band on call counts without the Erlang-C margin. Coverage: range over the seven areas. Below 0.90: number of areas. H1 criterion: number of areas whose lower 95\% bound of coverage is at least 0.85, with the pre-specified bootstrap seed (range over 50 seeds); descriptive, not a test. Extra unit-hours: range over areas of the ratio of mean unit-hours to SCD's, minus one. $\rho$: Spearman correlation between window coverage and the growth of demand from the calibration days to the test window, pooled over areas. $H$: half-life in weekdays. QT and SCD-I use the step factor 0.1.}
+\label{tab:amendfull}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lccccc}
+\toprule
+Rule & Coverage & Below 0.90 & H1 criterion & Extra unit-hours (\%) & $\rho$ \\
+\midrule
+SCD (pre-specified) & \res{xSCDcovMin}--\res{xSCDcovMax} & \res{xSCDbelow} & \res{xSCDhOne} (\res{xSCDhOneSeedMin}--\res{xSCDhOneSeedMax}) & 0 & $\res{xSCDrho}$ \\
+ACI & \res{xACIcovMin}--\res{xACIcovMax} & \res{xACIbelow} & \res{xACIhOne} (\res{xACIhOneSeedMin}--\res{xACIhOneSeedMax}) & $\res{xACIoverSCDMin}$ to $\res{xACIoverSCDMax}$ & $\res{xACIrho}$ \\
+WCP, $H=20$ & \res{xWCPcovMin}--\res{xWCPcovMax} & \res{xWCPbelow} & \res{xWCPhOne} (\res{xWCPhOneSeedMin}--\res{xWCPhOneSeedMax}) & $\res{xWCPoverSCDMin}$ to $\res{xWCPoverSCDMax}$ & $\res{xWCPrho}$ \\
+WCP, $H=10$ & \res{xWCPtencovMin}--\res{xWCPtencovMax} & \res{xWCPtenbelow} & \res{xWCPtenhOne} (\res{xWCPtenhOneSeedMin}--\res{xWCPtenhOneSeedMax}) & $\res{xWCPtenoverSCDMin}$ to $\res{xWCPtenoverSCDMax}$ & $\res{xWCPtenrho}$ \\
+WCP, $H=40$ & \res{xWCPfortycovMin}--\res{xWCPfortycovMax} & \res{xWCPfortybelow} & \res{xWCPfortyhOne} (\res{xWCPfortyhOneSeedMin}--\res{xWCPfortyhOneSeedMax}) & $\res{xWCPfortyoverSCDMin}$ to $\res{xWCPfortyoverSCDMax}$ & $\res{xWCPfortyrho}$ \\
+QT & \res{xQTcovMin}--\res{xQTcovMax} & \res{xQTbelow} & \res{xQThOne} (\res{xQThOneSeedMin}--\res{xQThOneSeedMax}) & $\res{xQToverSCDMin}$ to $\res{xQToverSCDMax}$ & $\res{xQTrho}$ \\
+SCD-I & \res{xSCDIcovMin}--\res{xSCDIcovMax} & \res{xSCDIbelow} & \res{xSCDIhOne} (\res{xSCDIhOneSeedMin}--\res{xSCDIhOneSeedMax}) & $\res{xSCDIoverSCDMin}$ to $\res{xSCDIoverSCDMax}$ & $\res{xSCDIrho}$ \\
+TAB & \res{xTABcovMin}--\res{xTABcovMax} & \res{xTABbelow} & \res{xTABhOne} (\res{xTABhOneSeedMin}--\res{xTABhOneSeedMax}) & $\res{xTABoverSCDMin}$ to $\res{xTABoverSCDMax}$ & $\res{xTABrho}$ \\
+TAB-ACI & \res{xTABACIcovMin}--\res{xTABACIcovMax} & \res{xTABACIbelow} & \res{xTABACIhOne} (\res{xTABACIhOneSeedMin}--\res{xTABACIhOneSeedMax}) & $\res{xTABACIoverSCDMin}$ to $\res{xTABACIoverSCDMax}$ & $\res{xTABACIrho}$ \\
+CRC-share & \res{xCRCScovMin}--\res{xCRCScovMax} & \res{xCRCSbelow} & \res{xCRCShOne} (\res{xCRCShOneSeedMin}--\res{xCRCShOneSeedMax}) & $\res{xCRCSoverSCDMin}$ to $\res{xCRCSoverSCDMax}$ & $\res{xCRCSrho}$ \\
+ACA0 & \res{xACAZcovMin}--\res{xACAZcovMax} & \res{xACAZbelow} & \res{xACAZhOne} (\res{xACAZhOneSeedMin}--\res{xACAZhOneSeedMax}) & $\res{xACAZoverSCDMin}$ to $\res{xACAZoverSCDMax}$ & $\res{xACAZrho}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \end{document}

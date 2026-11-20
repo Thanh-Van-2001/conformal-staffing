@@ -38,6 +38,13 @@ body = take_else(body)
 body = re.sub(r"\\res\{([^}]+)\}", lambda m: M[m.group(1)], body)
 body = body.replace("\\repolink", "\\url{https://github.com/Thanh-Van-2001/conformal-staffing}")
 body = body.replace("\\bibliographystyle{unsrtnat}", "").replace("\\bibliography{refs}", "")
+# supplementary appendix (Table S1) -> its own Word file; it is not part of the manuscript body
+supp = ""
+if "\\appendix" in body:
+    body, supp = body.split("\\appendix", 1)
+    body = body.replace("\\clearpage", "")
+body = body.replace("Supplementary Table~\\ref{tab:amendfull}", "Supplementary Table S1")
+supp = supp.replace("Supplementary Table~\\ref{tab:amendfull}", "Supplementary Table S1")
 
 # figures: drop, keep captions
 fig_caps = []
@@ -104,6 +111,29 @@ subprocess.run(["pandoc", "paper/docx/manuscript.md", "-o", "paper/docx/manuscri
                 "--bibliography", "paper/refs.bib", "--csl", "refs/csl/nlm-pandoc212.csl"], check=True)
 print("docx written;", words, "words in main text;", abs_words, "in the abstract;", len(tab_caps), "tables;",
       len(fig_caps), "figures")
+
+# supplementary file: Table S1
+if supp:
+    sm = ["# Supplementary material", "",
+          f"*{title}*", "",
+          "Exploratory analyses of the analysis-plan amendments 2 to 4; all numbers are generated from the result files "
+          "in the code repository (see the Data Sharing Statement).", ""]
+    for i, m in enumerate(re.finditer(r"\\begin\{table\}.*?\\end\{table\}", supp, flags=re.S), 1):
+        t = m.group(0)
+        cap = re.search(r"\\caption\{(.*?)\}\s*\\label", t, flags=re.S).group(1)
+        t = re.sub(r"\\caption\{.*?\}\s*\\label\{[^}]*\}", "", t, flags=re.S)
+        t = re.sub(r"\\begin\{table\}\[[^]]*\]|\\end\{table\}|\\centering|\\small|\\setlength\{[^}]*\}\{[^}]*\}", "", t)
+        cm = subprocess.run(["pandoc", "-f", "latex", "-t", "markdown"], input=cap, capture_output=True, text=True,
+                            encoding="utf-8", check=True).stdout.strip()
+        tm = subprocess.run(["pandoc", "-f", "latex", "-t", "markdown"], input=t, capture_output=True, text=True,
+                            encoding="utf-8", check=True).stdout
+        sm += [f"**Table S{i}.** {cm}", "", tm, ""]
+    assert "\\ref{" not in "\n".join(sm)
+    with open("paper/docx/supplement.md", "w", encoding="utf-8") as f:
+        f.write("\n".join(sm))
+    subprocess.run(["pandoc", "paper/docx/supplement.md", "-o", "paper/submission/package/Supplementary_Table_S1.docx"],
+                   check=True)
+    print("supplement written: Supplementary_Table_S1.docx")
 
 # cover letter: numbers from the macros, date of the build
 import datetime  # noqa: E402
