@@ -174,3 +174,55 @@ pre-specified. Added, all labelled exploratory in the paper:
 - Counts of systems below nominal coverage in each secondary configuration.
 - Descriptive data checks: calls still in service at 04:00 (carry-over that
   the simulator omits) and the share of very short busy times.
+
+### Amendment 3 (2026-11-20, after the results and a second, independent referee-style review; written and committed before any computation below was run)
+
+The review asked for baselines that address drift and for a forecast-band
+baseline that does not stack a band on MOL's hourly margin. No pre-specified
+rule, test, threshold or result changes; H1-H4 stay as reported. Everything
+below is exploratory: it decides nothing and is reported whatever it shows.
+
+New rules (same origins, training and test windows as the primary design):
+
+- WCP (weighted split conformal; Barber et al. 2023, fixed weights). Uses
+  SCD's base load, calibration scores and simulated test outcomes unchanged
+  (no new simulation). Calibration day j = 1..h in time order (j = h the most
+  recent) gets weight w_j = 2^(-(h - j)/H); the new day gets weight 1.
+  theta-hat = smallest grid theta with sum_j w_j 1{theta_j <= theta} >=
+  (1 - alpha)(sum_j w_j + 1); if there is none (including +inf scores), the
+  top of the grid, flagged. Half-life H = 20 weekdays primary; H = 10 and 40
+  as sensitivity values.
+- TAB (trend-adjusted base load). As SCD (base load from the first n/2
+  training days, scores from the last n/2), but the base load is rescaled to
+  the trend in daily call counts. N-hat(t) = OLS line through the daily call
+  counts of all n training days, t = 0..n-1; r(t) = N-hat(t) / N-hat(t_B),
+  with t_B = (h - 1)/2 the midpoint of the base days. Calibration day t is
+  scored with the plan family built on the load r(t) m_p. The test window
+  gets one plan with load r(t*) m_p, t* = n + 9.5 (the midpoint of the 20 test
+  days), and theta-hat = the k-th smallest score (same k as SCD). Cost =
+  unit-hours of that plan. r is not clipped; its range is reported. The
+  trend uses training-day call counts only (no outcomes), but the
+  calibration days enter the trend fit, so the split-conformal argument no
+  longer holds exactly.
+- TAB-ACI: ACI's level update (gamma = 0.05) applied to TAB.
+- ACA0 (conformal arrival band without the Erlang-C margin). ACA's envelope
+  U_p and load m_p(U) as in amendment 1, staffed with c_p =
+  max(1, ceil(m_p(U))), i.e. the square-root family at theta = 0 on the band
+  load, so the band supplies the whole margin.
+
+Computed for every system, origin, n in {40, 80, 160}, alpha in
+{0.05, 0.10, 0.20} and both targets (TAB is evaluated on the whole theta grid,
+so alpha enters only when the rules are applied).
+
+Reported (primary configuration; secondary configurations descriptively):
+coverage, unit-hours relative to SCD and to the hindsight plan, share of
+windows below 0.75, number of systems below 1 - alpha; the H1 criterion
+applied to each variant (lower moving-block bootstrap bound >= 0.85,
+pre-specified seed; descriptive, not a new hypothesis); pooled Spearman rho
+between load ratio and coverage per variant; per-system paired one-sided
+Wilcoxon of window coverage against SCD with Holm adjustment.
+
+Run on titan with nice 19 and a memory guard (the job is killed if
+MemAvailable falls below 1.5 GB); new outcome files go to `out/amend3/`;
+`results.json` is not touched. Code: `code/exp_amend3.py`,
+`code/analyze_amend3.py`.
