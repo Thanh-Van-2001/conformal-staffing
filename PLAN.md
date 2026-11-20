@@ -226,3 +226,51 @@ Run on titan with nice 19 and a memory guard (the job is killed if
 MemAvailable falls below 1.5 GB); new outcome files go to `out/amend3/`;
 `results.json` is not touched. Code: `code/exp_amend3.py`,
 `code/analyze_amend3.py`.
+
+Note (2026-11-20, after the amendment 3 run): the run finished (861 tasks;
+consistency checks passed: TAB with r = 1 reproduced SCD's stored scores and
+outcomes, the recomputed ACA envelope reproduced the stored ACA plans). The
+memory guard stopped the first attempt once (MemAvailable 1.53 GB, caused by
+other users); the run resumed from the finished files with 2 workers. The
+secondary-configuration cost macros used the median ratio to hindsight; they
+now use the ratio of mean unit-hours, the convention amendment 2 set for
+every cost figure (reporting only; no rule or test changes).
+
+### Amendment 4 (2026-11-20, after the amendment 3 results; written and committed before any computation below was run)
+
+Reason: a request to compare against current conformal methods for drift
+and decision losses. Same status as amendment 3: exploratory, decides
+nothing, reported whatever it shows; pre-registered results unchanged.
+
+- QT (quantile tracking, the P part of conformal PID control; Angelopoulos,
+  Candes and Tibshirani 2023). Per system, theta_1 = SCD's theta-hat at the
+  first origin; theta_{j+1} = theta_j + eta_j (miss_j - alpha), where miss_j is
+  the share of window j's test days that missed the target, rounded to the
+  grid and clipped to [-2, 10]. Base load and outcomes are SCD's (first n/2
+  training days of each origin); no new calibration after the first origin.
+- SCD-I (SCD as the scorecaster plus an integrator, the I part of conformal
+  PID control). theta_j = SCD's theta-hat_j + D_j, D_1 = 0,
+  D_{j+1} = D_j + eta_j (miss_j - alpha), rounded and clipped as above.
+- Step: eta_j = c (max - min of the finite calibration scores at origin j),
+  a step proportional to the score scale; c = 0.1 primary, 0.05 and 0.2
+  sensitivity. No new simulation (SCD's stored grid outcomes are used).
+- CRC-share (conformal risk control, Angelopoulos et al. 2024, with a
+  continuous decision loss). Loss of day i at theta: the share of its calls
+  delayed under c(theta), made non-increasing in theta by a running maximum
+  from the top of the grid; bound B = 1. theta-hat = smallest grid theta with
+  (sum_i L_i(theta) + 1)/(h + 1) <= 0.05 over the h calibration days (SCD's
+  base load). This promises an expected share of delayed calls of at most 5%
+  on a new day, not the day-level target; reported: day-level coverage, mean
+  share delayed on test days, unit-hours. Needs the calibration days' delayed
+  shares on the grid, which the first run did not store: they are recomputed
+  with the unchanged simulator (`code/exp_amend4.py`).
+- Check: CRC with the 0/1 loss "day misses the target" and B = 1 must select
+  the same theta as SCD at every origin (it is the same rank rule); asserted.
+- Reported like amendment 3 (primary configuration; target A only for
+  CRC-share), plus the H1 criterion descriptively.
+- Library versions of the titan environment are written to
+  `facts/software_versions.json` and quoted in the paper from there.
+
+Run on titan as amendment 3 (nice 19, memory guard); outputs in
+`out/amend4/`, `out/amend4_results.json`. Code: `code/exp_amend4.py`,
+`code/analyze_amend4.py`.
