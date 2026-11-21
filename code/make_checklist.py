@@ -1,6 +1,7 @@
 """STRESS-DES reporting checklist (Monks et al., J Simulation 2019) for the
 submission. Run from the repository root: python -I code/make_checklist.py"""
 import json
+import re
 
 import docx
 from docx.shared import Pt
@@ -64,26 +65,54 @@ ROWS = [
     ("6.1", "Computer model sharing statement", "https://github.com/Thanh-Van-2001/conformal-staffing (MIT licence): "
      "simulator, analysis code, analysis plan with commit history, results."),
 ]
-d = docx.Document()
-st = d.styles["Normal"]
-st.font.name = "Times New Roman"
-st.font.size = Pt(10)
-d.add_heading("STRESS-DES reporting checklist", level=1)
-d.add_paragraph("Manuscript: How many ambulances for nine good days in ten? A conformal staffing rule tested in seven EMS "
-                "service areas. Checklist items from Monks et al., Journal of Simulation 2019;13(1):55-67, "
-                "doi:10.1080/17477778.2018.1442155.")
-t = d.add_table(rows=1, cols=3)
-t.style = "Table Grid"
-for c, h in zip(t.rows[0].cells, ("Item", "Name", "Where and how reported")):
-    c.text = h
-    c.paragraphs[0].runs[0].bold = True
-for item, name, where in ROWS:
-    r = t.add_row().cells
-    if name is None:
-        m = r[0].merge(r[1]).merge(r[2])
-        m.text = item
-        m.paragraphs[0].runs[0].bold = True
-    else:
-        r[0].text, r[1].text, r[2].text = item, name, where
-d.save("paper/submission/STRESS_DES_checklist.docx")
-print("checklist written:", sum(1 for r in ROWS if r[1]), "items")
+# IISE THSE (double-anonymous review): no repository address, the section is
+# "Materials and methods", American spelling. The PEC rows above are unchanged.
+ANON_SHARING = ("Simulator, analysis code, analysis plan with commit history and results: available from the corresponding "
+                "author on request and to be deposited in a public repository (MIT license) upon acceptance; address "
+                "withheld for anonymous review.")
+
+
+def thse_rows():
+    out = []
+    for item, name, where in ROWS:
+        if name is not None:
+            where = ANON_SHARING if item == "6.1" else where
+            where = re.sub(r"\bMethods\b", "Materials and methods", where)
+            where = where.replace("summarises", "summarizes")
+            assert "github" not in where.lower() and "licence" not in where
+        out.append((item, name, where))
+    return out
+
+
+def build(path, rows, anonymous=False):
+    d = docx.Document()
+    if anonymous:
+        d.core_properties.author = ""
+        d.core_properties.last_modified_by = ""
+    st = d.styles["Normal"]
+    st.font.name = "Times New Roman"
+    st.font.size = Pt(10)
+    d.add_heading("STRESS-DES reporting checklist", level=1)
+    d.add_paragraph("Manuscript: How many ambulances for nine good days in ten? A conformal staffing rule tested in seven EMS "
+                    "service areas. Checklist items from Monks et al., Journal of Simulation 2019;13(1):55-67, "
+                    "doi:10.1080/17477778.2018.1442155.")
+    t = d.add_table(rows=1, cols=3)
+    t.style = "Table Grid"
+    for c, h in zip(t.rows[0].cells, ("Item", "Name", "Where and how reported")):
+        c.text = h
+        c.paragraphs[0].runs[0].bold = True
+    for item, name, where in rows:
+        r = t.add_row().cells
+        if name is None:
+            m = r[0].merge(r[1]).merge(r[2])
+            m.text = item
+            m.paragraphs[0].runs[0].bold = True
+        else:
+            r[0].text, r[1].text, r[2].text = item, name, where
+    d.save(path)
+    return sum(1 for r in rows if r[1])
+
+
+if __name__ == "__main__":
+    n = build("paper/submission/STRESS_DES_checklist.docx", ROWS)
+    print("checklist written:", n, "items")

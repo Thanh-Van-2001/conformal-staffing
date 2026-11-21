@@ -1,0 +1,30 @@
+{
+ "pages": 29,
+ "wcAbs": 195,
+ "wcMain": 5051,
+ "wcTotal": 7063,
+ "tables": 4,
+ "figures": 2,
+ "keywords": [
+  "emergency medical services",
+  "ambulance staffing",
+  "conformal prediction",
+  "service-level guarantee",
+  "trace-driven simulation",
+  "distribution shift",
+  "Erlang-C",
+  "healthcare operations"
+ ],
+ "plain_abstract_words": 196,
+ "zip_members": [
+  "manuscript_anonymous.tex",
+  "manuscript_anonymous.bbl",
+  "macros.tex",
+  "thse_counts.tex",
+  "refs.bib",
+  "thseapa.bst",
+  "fig_coverage_cost.pdf",
+  "fig_drift.pdf",
+  "README.txt"
+ ]
+}

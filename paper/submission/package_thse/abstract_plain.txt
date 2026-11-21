@@ -1,0 +1,7 @@
+Background. Emergency medical service (EMS) staffing rules target an average hourly delay, not how often a day goes badly. Conformal prediction has bounded EMS demand forecasts but not the staffing decision itself.
+
+Methods. We used 4,696,716 dispatch records from seven New York City and San Francisco areas (weekdays, 2022–2025). A day met the target if at most 5% of calls waited for a free unit. Split conformal calibration of the decision (SCD) set a square-root staffing plan’s safety factor to a rank of the factors recent days had needed. Trace-driven simulation over 287 out-of-sample 20-day windows compared SCD with Erlang-C rules, an in-sample chance constraint and conformal call-count bands, under a plan fixed in advance.
+
+Results. SCD met the target on 0.876–0.906 of days (goal 0.90), for 5–13% more unit-hours than the Erlang-C rule MOL (0.445–0.800). The pre-specified validity criterion failed (4–5 of 7 areas; 6 required); the in-sample rule was not significantly less reliable. Coverage fell as demand grew (Spearman ρ = −0.57). Call-count bands cost 27–84% more. Exploratory recency weighting reached 0.906–0.937 for 1.1–3.2% more.
+
+Conclusions. Calibrating the decision, not the forecast, gave near-nominal reliability at modest cost; under growing demand, calibration must adapt.
